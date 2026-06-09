@@ -1,0 +1,29 @@
+name: Daily GitHub Agent Report
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # daily at 08:00 UTC
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run central reporter
+        env:
+          TARGET_GITHUB_USERNAME: sande231
+          RECIPIENTS: ${{ secrets.REPORT_RECIPIENTS }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          SENDGRID_FROM: ${{ secrets.SENDGRID_FROM }}
+          TARGET_GH_PAT: ${{ secrets.TARGET_GH_PAT }}
+        run: |
+          python central_reporter.py

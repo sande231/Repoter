@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Agent Performance Report</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px }
+      table { border-collapse: collapse; width: 100% }
+      th, td { border: 1px solid #ddd; padding: 8px }
+      th { background: #f2f2f2 }
+      .agent { margin-bottom: 24px }
+    </style>
+  </head>
+  <body>
+    <h1>Agent Performance Report</h1>
+    <p>Generated at: {{ generated_at }}</p>
+
+    {% for a in agents %}
+    <div class="agent">
+      <h2>{{ a.agent_id }}</h2>
+      <p>Info: {{ a.info }}</p>
+      {% if a.stats %}
+      <table>
+        <thead><tr><th>Metric</th><th>Count</th><th>Avg</th><th>Min</th><th>Max</th></tr></thead>
+        <tbody>
+        {% for k, v in a.stats.items() %}
+          <tr>
+            <td>{{ k }}</td>
+            <td>{{ v.count }}</td>
+            <td>{{ '%.3f'|format(v.avg) if v.avg is not none else '' }}</td>
+            <td>{{ '%.3f'|format(v.min) if v.min is not none else '' }}</td>
+            <td>{{ '%.3f'|format(v.max) if v.max is not none else '' }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p><em>No metrics found in the window.</em></p>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </body>
+</html>

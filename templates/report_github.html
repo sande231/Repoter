@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>GitHub Agent Report</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px }
+      table { border-collapse: collapse; width: 100% }
+      th, td { border: 1px solid #ddd; padding: 8px }
+      th { background: #f2f2f2 }
+    </style>
+  </head>
+  <body>
+    <h1>GitHub Agent Report</h1>
+    <p>Generated at: {{ generated_at }}</p>
+    <table>
+      <thead>
+        <tr><th>Repository</th><th>Latest Workflow</th><th>Conclusion</th><th>Link</th></tr>
+      </thead>
+      <tbody>
+      {% for r in repos %}
+        <tr>
+          <td>{{ r.name }}</td>
+          <td>{{ r.status.status if r.status else 'n/a' }}</td>
+          <td>{{ r.status.conclusion if r.status else 'n/a' }}</td>
+          <td>{% if r.status %}<a href="{{ r.status.html_url }}">run</a>{% else %}-{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
