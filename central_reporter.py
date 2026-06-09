@@ -116,6 +116,11 @@ def send_smtp(subject, html_body, recipients):
 def main():
     if not GITHUB_USER:
         raise SystemExit("TARGET_GITHUB_USERNAME env var required")
+    print(f"SMTP_HOST set: {bool(SMTP_HOST)}")
+    print(f"SMTP_PORT set: {bool(SMTP_PORT)}")
+    print(f"SMTP_USER set: {bool(SMTP_USER)}")
+    print(f"SMTP_PASS set: {bool(SMTP_PASS)}")
+    print(f"RECIPIENTS: {RECIPIENTS}")
     repos_report = gather_report(GITHUB_USER)
     html = render_report(repos_report)
     subject = f"GitHub Agent Report for {GITHUB_USER} - {time.strftime('%Y-%m-%d') }"
