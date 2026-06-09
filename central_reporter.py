@@ -1,19 +1,25 @@
 """Central GitHub reporter: queries a GitHub user's repositories, gathers latest
-workflow run statuses, renders an HTML report, and sends it via SendGrid.
+workflow run statuses, renders an HTML report, and sends it via Gmail SMTP.
 
 Usage: set environment variables `TARGET_GITHUB_USERNAME`, `RECIPIENTS` (comma-separated),
-and `SENDGRID_API_KEY` (or leave unset to print report). Run in a scheduled GitHub Actions workflow.
+`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, and `SMTP_PASS` (for Gmail: use app password).
+Or leave empty to print report to stdout.
 """
 import os
 import requests
 import time
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from jinja2 import Environment, FileSystemLoader
 
 GITHUB_USER = os.environ.get("TARGET_GITHUB_USERNAME")
 TOKEN = os.environ.get("TARGET_GH_PAT") or os.environ.get("GITHUB_TOKEN")
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
+SMTP_HOST = os.environ.get("SMTP_HOST")
+SMTP_PORT = int(os.environ.get("SMTP_PORT", 587)) if os.environ.get("SMTP_PORT") else None
+SMTP_USER = os.environ.get("SMTP_USER")
+SMTP_PASS = os.environ.get("SMTP_PASS", "").replace(" ", "")  # Remove spaces from Gmail app password
 RECIPIENTS = [r.strip() for r in os.environ.get("RECIPIENTS", "").split(",") if r.strip()]
-FROM_EMAIL = os.environ.get("SENDGRID_FROM", f"noreply@{GITHUB_USER or 'example.com'}")
 
 env = Environment(loader=FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
 
@@ -69,24 +75,42 @@ def render_report(repos_report):
     return tmpl.render(repos=repos_report, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
-def send_sendgrid(subject, html_body, recipients):
-    if not SENDGRID_API_KEY:
-        print("SENDGRID_API_KEY not set; printing report to stdout")
+def send_smtp(subject, html_body, recipients):
+    """Send email via SMTP (Gmail or other SMTP provider)."""
+    if not recipients:
+        print("No recipients configured; printing report to stdout")
         print(html_body)
         return
 
-    url = "https://api.sendgrid.com/v3/mail/send"
-    headers = {"Authorization": f"Bearer {SENDGRID_API_KEY}", "Content-Type": "application/json"}
-    personalizations = [{"to": [{"email": r} for r in recipients]}]
-    payload = {
-        "personalizations": personalizations,
-        "from": {"email": FROM_EMAIL},
-        "subject": subject,
-        "content": [{"type": "text/html", "value": html_body}],
-    }
-    resp = requests.post(url, headers=headers, json=payload, timeout=10)
-    resp.raise_for_status()
-    return resp
+    if not SMTP_HOST or not SMTP_PORT or not SMTP_USER or not SMTP_PASS:
+        print("SMTP not configured; printing report to stdout")
+        print(html_body)
+        return
+
+    # Validate and clean recipients
+    valid_recipients = [r.strip() for r in recipients if r and "@" in r]
+    if not valid_recipients:
+        print(f"No valid recipients found in: {recipients}")
+        print(html_body)
+        return
+
+    msg = MIMEMultipart("alternative")
+    msg["Subject"] = subject
+    msg["From"] = SMTP_USER
+    msg["To"] = ",".join(valid_recipients)
+    part = MIMEText(html_body, "html")
+    msg.attach(part)
+
+    try:
+        s = smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10)
+        s.starttls()
+        s.login(SMTP_USER, SMTP_PASS)
+        s.sendmail(SMTP_USER, valid_recipients, msg.as_string())
+        s.quit()
+        print(f"Email sent successfully to {valid_recipients}")
+    except Exception as e:
+        print(f"SMTP error: {e}")
+        raise
 
 
 def main():
@@ -96,7 +120,7 @@ def main():
     html = render_report(repos_report)
     subject = f"GitHub Agent Report for {GITHUB_USER} - {time.strftime('%Y-%m-%d') }"
     if RECIPIENTS:
-        send_sendgrid(subject, html, RECIPIENTS)
+        send_smtp(subject, html, RECIPIENTS)
     else:
         print(html)
 
