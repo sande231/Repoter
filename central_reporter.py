@@ -38,7 +38,7 @@ def list_repos(user):
     repos = []
     page = 1
     while True:
-        data = github_get(f"/users/{user}/repos", params={"per_page": 100, "page": page})
+        data = github_get(f"/users/{user}/repos", params={"per_page": 100, "page": page, "sort": "updated"})
         if not data:
             break
         repos.extend(data)
@@ -55,9 +55,29 @@ def latest_workflow_status(owner, repo):
         if not runs:
             return None
         r = runs[0]
-        return {"status": r.get("status"), "conclusion": r.get("conclusion"), "html_url": r.get("html_url"), "updated_at": r.get("updated_at")}
+        started_at = r.get("run_started_at")
+        updated_at = r.get("updated_at")
+        duration = None
+        if started_at and updated_at:
+            try:
+                start_ts = time.strptime(started_at, "%Y-%m-%dT%H:%M:%SZ")
+                update_ts = time.strptime(updated_at, "%Y-%m-%dT%H:%M:%SZ")
+                duration = int(time.mktime(update_ts) - time.mktime(start_ts))
+            except Exception:
+                duration = None
+        return {"status": r.get("status"), "conclusion": r.get("conclusion"), "html_url": r.get("html_url"), "updated_at": updated_at, "name": r.get("name"), "run_started_at": started_at, "duration_seconds": duration}
     except requests.HTTPError:
         return None
+
+
+def summarize_report(repos_report):
+    total = len(repos_report)
+    with_workflow = sum(1 for r in repos_report if r["status"] is not None)
+    successful = sum(1 for r in repos_report if r["status"] and r["status"]["conclusion"] == "success")
+    failed = sum(1 for r in repos_report if r["status"] and r["status"]["conclusion"] not in (None, "success"))
+    in_progress = sum(1 for r in repos_report if r["status"] and r["status"]["status"] == "in_progress")
+    no_workflow = total - with_workflow
+    return {"total_repos": total, "with_workflow": with_workflow, "successful": successful, "failed": failed, "in_progress": in_progress, "no_workflow": no_workflow}
 
 
 def gather_report(username):
@@ -66,13 +86,22 @@ def gather_report(username):
     for r in repos:
         name = r.get("name")
         status = latest_workflow_status(username, name)
-        report.append({"name": name, "html_url": r.get("html_url"), "status": status})
+        report.append({
+            "name": name,
+            "html_url": r.get("html_url"),
+            "description": r.get("description"),
+            "stars": r.get("stargazers_count"),
+            "forks": r.get("forks_count"),
+            "private": r.get("private"),
+            "updated_at": r.get("updated_at"),
+            "status": status,
+        })
     return report
 
 
-def render_report(repos_report):
+def render_report(repos_report, summary):
     tmpl = env.get_template("report_github.html")
-    return tmpl.render(repos=repos_report, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+    return tmpl.render(repos=repos_report, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
 def send_smtp(subject, html_body, recipients):
@@ -122,7 +151,8 @@ def main():
     print(f"SMTP_PASS set: {bool(SMTP_PASS)}")
     print(f"RECIPIENTS: {RECIPIENTS}")
     repos_report = gather_report(GITHUB_USER)
-    html = render_report(repos_report)
+    summary = summarize_report(repos_report)
+    html = render_report(repos_report, summary)
     subject = f"GitHub Agent Report for {GITHUB_USER} - {time.strftime('%Y-%m-%d') }"
     if RECIPIENTS:
         send_smtp(subject, html, RECIPIENTS)

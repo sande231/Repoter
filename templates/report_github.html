@@ -7,21 +7,46 @@
       table { border-collapse: collapse; width: 100% }
       th, td { border: 1px solid #ddd; padding: 8px }
       th { background: #f2f2f2 }
+      .summary { margin-bottom: 24px }
+      .repo-description { color: #555; font-size: 0.95em; margin-top: 4px }
     </style>
   </head>
   <body>
     <h1>GitHub Agent Report</h1>
     <p>Generated at: {{ generated_at }}</p>
+
+    <div class="summary">
+      <p><strong>Total repos:</strong> {{ summary.total_repos }}</p>
+      <p><strong>Repos with workflows:</strong> {{ summary.with_workflow }}</p>
+      <p><strong>Successful last runs:</strong> {{ summary.successful }}</p>
+      <p><strong>Failed / non-success runs:</strong> {{ summary.failed }}</p>
+      <p><strong>In progress:</strong> {{ summary.in_progress }}</p>
+      <p><strong>No workflows:</strong> {{ summary.no_workflow }}</p>
+    </div>
+
     <table>
       <thead>
-        <tr><th>Repository</th><th>Latest Workflow</th><th>Conclusion</th><th>Link</th></tr>
+        <tr>
+          <th>Repository</th>
+          <th>Description</th>
+          <th>Stars</th>
+          <th>Forks</th>
+          <th>Status</th>
+          <th>Conclusion</th>
+          <th>Last run</th>
+          <th>Link</th>
+        </tr>
       </thead>
       <tbody>
       {% for r in repos %}
         <tr>
           <td>{{ r.name }}</td>
+          <td>{{ r.description or '-' }}</td>
+          <td>{{ r.stars }}</td>
+          <td>{{ r.forks }}</td>
           <td>{{ r.status.status if r.status else 'n/a' }}</td>
           <td>{{ r.status.conclusion if r.status else 'n/a' }}</td>
+          <td>{% if r.status %}{{ r.status.updated_at }}{% else %}-{% endif %}</td>
           <td>{% if r.status %}<a href="{{ r.status.html_url }}">run</a>{% else %}-{% endif %}</td>
         </tr>
       {% endfor %}
