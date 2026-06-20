@@ -22,8 +22,10 @@ jobs:
         env:
           TARGET_GITHUB_USERNAME: sande231
           RECIPIENTS: ${{ secrets.REPORT_RECIPIENTS }}
-          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
-          SENDGRID_FROM: ${{ secrets.SENDGRID_FROM }}
+          SMTP_HOST: smtp.gmail.com
+          SMTP_PORT: 587
+          SMTP_USER: ${{ secrets.GMAIL_SMTP_USER }}
+          SMTP_PASS: ${{ secrets.GMAIL_SMTP_PASS }}
           TARGET_GH_PAT: ${{ secrets.TARGET_GH_PAT }}
         run: |
           python central_reporter.py
