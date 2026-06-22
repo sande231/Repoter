@@ -1,15 +1,18 @@
 # MainAgent MVP
 
-This workspace contains a minimal MVP of a MainAgent reporting system:
+This workspace contains a MainAgent reporting system with GitHub workflow monitoring, dashboard generation, and email reporting.
 
 - `agent_sdk.py` — simple client used by subordinate agents to register and post telemetry.
 - `ingestion_server.py` — Flask app that accepts registrations and telemetry and stores them in-memory.
-- `main_agent.py` — collects metrics from the ingestion server, aggregates them, renders an HTML report, and sends email (prints to stdout if SMTP not configured).
-- `templates/report.html` — Jinja2 template used for HTML reports.
-- `run_mvp.py` — demo runner that starts the ingestion server, sends sample telemetry, and runs the reporter.
+- `main_agent.py` — collects metrics from the ingestion server, aggregates them, renders an HTML report, and sends email.
+- `central_reporter.py` — queries GitHub repositories and workflow runs, renders an HTML report and dashboard, sends email, and optionally creates GitHub issues for failures.
+- `templates/report_github.html` — Jinja2 template used for email reports.
+- `templates/dashboard.html` — Jinja2 template used for the generated dashboard artifact.
+- `tests/` — unit tests for the ingestion server, SDK, and GitHub reporter.
+- `.github/workflows/daily_github_report.yml` — schedules daily reporter runs, runs tests, and uploads the dashboard artifact.
 - `requirements.txt` — Python dependencies.
 
-Quick start (requires Python 3.8+):
+Quick start (requires Python 3.10+):
 
 1. Create a virtual environment and install dependencies:
 
@@ -19,24 +22,25 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-2. Run the demo:
+2. Run the reporter locally:
 
 ```bash
-python run_mvp.py
-```
-
-You should see the generated HTML report printed to stdout (SMTP not configured by default).
-
-To enable SMTP email delivery, set environment variables before running `main_agent.py` or `run_mvp.py`:
-
-```bash
-export SMTP_HOST=smtp.example.com
+export TARGET_GITHUB_USERNAME=sande231
+export RECIPIENTS=you@example.com
+export SMTP_HOST=smtp.gmail.com
 export SMTP_PORT=587
 export SMTP_USER=you@example.com
-export SMTP_PASS=secret
-export RECIPIENTS=ops@example.com,dev@example.com
-python main_agent.py
+export SMTP_PASS=<app-password>
+export TARGET_GH_PAT=<github-pat>
+python central_reporter.py
+```
+
+3. Run tests:
+
+```bash
+pytest -q
 ```
 
 Notes:
-- This is an MVP focused on demonstrating end-to-end flow. Production systems should add persistence (TSDB), authentication (mTLS/OAuth2), message broker for durability, robust retries, batching, rate limits, and secure secrets management.
+- `central_reporter.py` now generates `dashboard.html` and uploads it as a GitHub Actions artifact.
+- Production systems should add monitoring, retries, persistence, secure secrets management, and issue deduplication.

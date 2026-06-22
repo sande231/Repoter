@@ -18,6 +18,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          pytest -q
       - name: Run central reporter
         env:
           TARGET_GITHUB_USERNAME: sande231
@@ -27,5 +30,12 @@ jobs:
           SMTP_USER: ${{ secrets.GMAIL_SMTP_USER }}
           SMTP_PASS: ${{ secrets.GMAIL_SMTP_PASS }}
           TARGET_GH_PAT: ${{ secrets.TARGET_GH_PAT }}
+          AUTO_CREATE_ISSUES: true
+          ISSUE_LABEL: agent-report
         run: |
           python central_reporter.py
+      - name: Upload dashboard artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-agent-dashboard
+          path: dashboard.html
