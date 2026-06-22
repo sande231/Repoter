@@ -35,6 +35,21 @@ export TARGET_GH_PAT=<github-pat>
 python central_reporter.py
 ```
 
+Optional configuration:
+
+```bash
+export REPO_INCLUDE=my-repo,other-repo
+export REPO_EXCLUDE=archive-repo
+export MAX_REPOS=20
+export LOG_LEVEL=INFO
+export RETRY_ATTEMPTS=3
+export RETRY_BACKOFF=2.0
+export SMTP_RETRY_ATTEMPTS=2
+export SMTP_RETRY_BACKOFF=2.0
+export AUTO_CREATE_ISSUES=true
+export ISSUE_LABEL=agent-report
+```
+
 3. Run tests:
 
 ```bash
@@ -43,4 +58,7 @@ pytest -q
 
 Notes:
 - `central_reporter.py` now generates `dashboard.html` and uploads it as a GitHub Actions artifact.
-- Production systems should add monitoring, retries, persistence, secure secrets management, and issue deduplication.
+- The reporter now includes request retrying, SMTP retry/backoff, repo filtering, and duplicate issue detection for better reliability.
+- `AUTO_CREATE_ISSUES` requires `TARGET_GH_PAT` or `GITHUB_TOKEN` and will skip duplicates for the same title.
+- Use a minimal-scope GitHub PAT for security, and keep SMTP/GitHub credentials in GitHub Secrets rather than in plaintext.
+- Production systems should add monitoring, persistence, secrets vaulting, and authenticated service boundaries.
