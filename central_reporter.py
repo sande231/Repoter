@@ -20,6 +20,8 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", 587)) if os.environ.get("SMTP_PORT")
 SMTP_USER = os.environ.get("SMTP_USER")
 SMTP_PASS = os.environ.get("SMTP_PASS", "").replace(" ", "")  # Remove spaces from Gmail app password
 RECIPIENTS = [r.strip() for r in os.environ.get("RECIPIENTS", "").split(",") if r.strip()]
+AUTO_CREATE_ISSUES = os.environ.get("AUTO_CREATE_ISSUES", "false").lower() in ("1", "true", "yes")
+ISSUE_LABEL = os.environ.get("ISSUE_LABEL", "agent-report")
 
 env = Environment(loader=FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
 
@@ -104,6 +106,57 @@ def render_report(repos_report, summary):
     return tmpl.render(repos=repos_report, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
+def render_dashboard(repos_report, summary):
+    tmpl = env.get_template("dashboard.html")
+    return tmpl.render(repos=repos_report, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+def write_dashboard(repos_report, summary, path="dashboard.html"):
+    html = render_dashboard(repos_report, summary)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print(f"Saved dashboard to {path}")
+    return path
+
+
+def create_issue(owner, repo, title, body, labels=None):
+    if not TOKEN:
+        print("Cannot create issue: GitHub token is not configured")
+        return None
+
+    url = f"https://api.github.com/repos/{owner}/{repo}/issues"
+    headers = {
+        "Accept": "application/vnd.github.v3+json",
+        "Authorization": f"token {TOKEN}",
+    }
+    payload = {"title": title, "body": body, "labels": labels or []}
+    resp = requests.post(url, headers=headers, json=payload, timeout=10)
+    if resp.status_code == 201:
+        print(f"Created issue in {owner}/{repo}: {title}")
+        return resp.json()
+    else:
+        print(f"Failed to create issue in {owner}/{repo}: {resp.status_code} {resp.text}")
+        return None
+
+
+def build_issue_body(repo_name, status):
+    body_lines = [
+        f"The daily agent report detected a workflow failure in **{repo_name}**.",
+        "",
+        f"- Workflow name: {status.get('name', 'unknown')}",
+        f"- Status: {status.get('status')}",
+        f"- Conclusion: {status.get('conclusion')}",
+        f"- Started at: {status.get('run_started_at') or 'n/a'}",
+        f"- Finished at: {status.get('updated_at') or 'n/a'}",
+        f"- Duration: {status.get('duration_seconds')} seconds" if status.get('duration_seconds') is not None else "- Duration: n/a",
+        "",
+        f"[View workflow run]({status.get('html_url')})",
+        "",
+        "Suggested action: review the failing workflow logs and fix the root cause."
+    ]
+    return "\n".join(body_lines)
+
+
 def send_smtp(subject, html_body, recipients):
     """Send email via SMTP (Gmail or other SMTP provider)."""
     if not recipients:
@@ -150,14 +203,24 @@ def main():
     print(f"SMTP_USER set: {bool(SMTP_USER)}")
     print(f"SMTP_PASS set: {bool(SMTP_PASS)}")
     print(f"RECIPIENTS: {RECIPIENTS}")
+    print(f"AUTO_CREATE_ISSUES: {AUTO_CREATE_ISSUES}")
     repos_report = gather_report(GITHUB_USER)
     summary = summarize_report(repos_report)
+    dashboard_path = write_dashboard(repos_report, summary)
     html = render_report(repos_report, summary)
     subject = f"GitHub Agent Report for {GITHUB_USER} - {time.strftime('%Y-%m-%d') }"
+    if AUTO_CREATE_ISSUES:
+        for repo in repos_report:
+            status = repo.get("status")
+            if status and status.get("status") == "completed" and status.get("conclusion") != "success":
+                issue_title = f"[Agent Report] Workflow failure in {repo['name']}"
+                issue_body = build_issue_body(repo['name'], status)
+                create_issue(GITHUB_USER, repo['name'], issue_title, issue_body, labels=[ISSUE_LABEL])
     if RECIPIENTS:
         send_smtp(subject, html, RECIPIENTS)
     else:
         print(html)
+    print(f"Dashboard available at: {dashboard_path}")
 
 
 if __name__ == "__main__":
