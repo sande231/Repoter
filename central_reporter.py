@@ -5,12 +5,16 @@ Usage: set environment variables `TARGET_GITHUB_USERNAME`, `RECIPIENTS` (comma-s
 `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, and `SMTP_PASS` (for Gmail: use app password).
 Or leave empty to print report to stdout.
 """
+import logging
 import os
-import requests
 import time
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from jinja2 import Environment, FileSystemLoader
 
 GITHUB_USER = os.environ.get("TARGET_GITHUB_USERNAME")
@@ -22,18 +26,53 @@ SMTP_PASS = os.environ.get("SMTP_PASS", "").replace(" ", "")  # Remove spaces fr
 RECIPIENTS = [r.strip() for r in os.environ.get("RECIPIENTS", "").split(",") if r.strip()]
 AUTO_CREATE_ISSUES = os.environ.get("AUTO_CREATE_ISSUES", "false").lower() in ("1", "true", "yes")
 ISSUE_LABEL = os.environ.get("ISSUE_LABEL", "agent-report")
+REPO_INCLUDE = [r.strip() for r in os.environ.get("REPO_INCLUDE", "").split(",") if r.strip()]
+REPO_EXCLUDE = [r.strip() for r in os.environ.get("REPO_EXCLUDE", "").split(",") if r.strip()]
+MAX_REPOS = int(os.environ.get("MAX_REPOS", "0")) if os.environ.get("MAX_REPOS") else None
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
+RETRY_ATTEMPTS = int(os.environ.get("RETRY_ATTEMPTS", "3"))
+RETRY_BACKOFF = float(os.environ.get("RETRY_BACKOFF", "2.0"))
+SMTP_RETRY_ATTEMPTS = int(os.environ.get("SMTP_RETRY_ATTEMPTS", "2"))
+SMTP_RETRY_BACKOFF = float(os.environ.get("SMTP_RETRY_BACKOFF", "2.0"))
+
+logging.basicConfig(level=LOG_LEVEL, format="%(asctime)s %(levelname)s %(message)s")
+logger = logging.getLogger(__name__)
 
 env = Environment(loader=FileSystemLoader(os.path.join(os.path.dirname(__file__), "templates")))
 
+session = requests.Session()
+session.headers.update({"Accept": "application/vnd.github.v3+json"})
+if TOKEN:
+    session.headers["Authorization"] = f"token {TOKEN}"
+retry_strategy = Retry(
+    total=RETRY_ATTEMPTS,
+    backoff_factor=RETRY_BACKOFF,
+    status_forcelist=[429, 500, 502, 503, 504],
+    allowed_methods=["HEAD", "GET", "POST", "PUT", "PATCH", "DELETE"],
+)
+adapter = HTTPAdapter(max_retries=retry_strategy)
+session.mount("https://", adapter)
+session.mount("http://", adapter)
+
+
+def github_request(method, path, params=None, json_payload=None):
+    url = f"https://api.github.com{path}"
+    try:
+        if method == "GET":
+            resp = session.get(url, params=params, timeout=10)
+        elif method == "POST":
+            resp = session.post(url, params=params, json=json_payload, timeout=10)
+        else:
+            resp = session.request(method, url, params=params, json=json_payload, timeout=10)
+        resp.raise_for_status()
+        return resp.json()
+    except requests.exceptions.RequestException as exc:
+        logger.error("GitHub request failed: %s %s %s", method, url, exc)
+        raise
+
 
 def github_get(path, params=None):
-    url = f"https://api.github.com{path}"
-    headers = {"Accept": "application/vnd.github.v3+json"}
-    if TOKEN:
-        headers["Authorization"] = f"token {TOKEN}"
-    resp = requests.get(url, headers=headers, params=params, timeout=10)
-    resp.raise_for_status()
-    return resp.json()
+    return github_request("GET", path, params=params)
 
 
 def list_repos(user):
@@ -67,8 +106,17 @@ def latest_workflow_status(owner, repo):
                 duration = int(time.mktime(update_ts) - time.mktime(start_ts))
             except Exception:
                 duration = None
-        return {"status": r.get("status"), "conclusion": r.get("conclusion"), "html_url": r.get("html_url"), "updated_at": updated_at, "name": r.get("name"), "run_started_at": started_at, "duration_seconds": duration}
-    except requests.HTTPError:
+        return {
+            "status": r.get("status"),
+            "conclusion": r.get("conclusion"),
+            "html_url": r.get("html_url"),
+            "updated_at": updated_at,
+            "name": r.get("name"),
+            "run_started_at": started_at,
+            "duration_seconds": duration,
+        }
+    except requests.exceptions.RequestException:
+        logger.warning("Unable to get workflow status for %s/%s", owner, repo)
         return None
 
 
@@ -79,11 +127,32 @@ def summarize_report(repos_report):
     failed = sum(1 for r in repos_report if r["status"] and r["status"]["conclusion"] not in (None, "success"))
     in_progress = sum(1 for r in repos_report if r["status"] and r["status"]["status"] == "in_progress")
     no_workflow = total - with_workflow
-    return {"total_repos": total, "with_workflow": with_workflow, "successful": successful, "failed": failed, "in_progress": in_progress, "no_workflow": no_workflow}
+    return {
+        "total_repos": total,
+        "with_workflow": with_workflow,
+        "successful": successful,
+        "failed": failed,
+        "in_progress": in_progress,
+        "no_workflow": no_workflow,
+    }
+
+
+def filter_repos(repos):
+    if REPO_INCLUDE:
+        logger.info("Filtering repos by allowlist: %s", REPO_INCLUDE)
+        repos = [r for r in repos if r.get("name") in REPO_INCLUDE]
+    if REPO_EXCLUDE:
+        logger.info("Excluding repos: %s", REPO_EXCLUDE)
+        repos = [r for r in repos if r.get("name") not in REPO_EXCLUDE]
+    if MAX_REPOS:
+        logger.info("Limiting repos to first %s entries", MAX_REPOS)
+        repos = repos[:MAX_REPOS]
+    return repos
 
 
 def gather_report(username):
     repos = list_repos(username)
+    repos = filter_repos(repos)
     report = []
     for r in repos:
         name = r.get("name")
@@ -99,6 +168,23 @@ def gather_report(username):
             "status": status,
         })
     return report
+
+
+def issue_exists(owner, repo, title):
+    if not TOKEN:
+        return False
+    try:
+        issues = github_get(
+            f"/repos/{owner}/{repo}/issues",
+            params={"state": "open", "labels": ISSUE_LABEL, "per_page": 100},
+        )
+        for issue in issues:
+            if issue.get("title") == title:
+                logger.info("Found existing issue for %s/%s: %s", owner, repo, title)
+                return True
+    except requests.exceptions.RequestException:
+        logger.warning("Unable to check existing issues for %s/%s", owner, repo)
+    return False
 
 
 def render_report(repos_report, summary):
@@ -121,21 +207,22 @@ def write_dashboard(repos_report, summary, path="dashboard.html"):
 
 def create_issue(owner, repo, title, body, labels=None):
     if not TOKEN:
-        print("Cannot create issue: GitHub token is not configured")
+        logger.warning("Cannot create issue without a GitHub token")
+        return None
+    if issue_exists(owner, repo, title):
+        logger.info("Skipping issue creation for %s/%s because duplicate exists", owner, repo)
         return None
 
-    url = f"https://api.github.com/repos/{owner}/{repo}/issues"
-    headers = {
-        "Accept": "application/vnd.github.v3+json",
-        "Authorization": f"token {TOKEN}",
-    }
-    payload = {"title": title, "body": body, "labels": labels or []}
-    resp = requests.post(url, headers=headers, json=payload, timeout=10)
-    if resp.status_code == 201:
-        print(f"Created issue in {owner}/{repo}: {title}")
-        return resp.json()
-    else:
-        print(f"Failed to create issue in {owner}/{repo}: {resp.status_code} {resp.text}")
+    try:
+        result = github_request(
+            "POST",
+            f"/repos/{owner}/{repo}/issues",
+            json_payload={"title": title, "body": body, "labels": labels or []},
+        )
+        logger.info("Created issue in %s/%s: %s", owner, repo, title)
+        return result
+    except requests.exceptions.RequestException as exc:
+        logger.error("Failed to create issue in %s/%s: %s", owner, repo, exc)
         return None
 
 
@@ -160,19 +247,18 @@ def build_issue_body(repo_name, status):
 def send_smtp(subject, html_body, recipients):
     """Send email via SMTP (Gmail or other SMTP provider)."""
     if not recipients:
-        print("No recipients configured; printing report to stdout")
+        logger.warning("No recipients configured; printing report to stdout")
         print(html_body)
         return
 
     if not SMTP_HOST or not SMTP_PORT or not SMTP_USER or not SMTP_PASS:
-        print("SMTP not configured; printing report to stdout")
+        logger.warning("SMTP not configured; printing report to stdout")
         print(html_body)
         return
 
-    # Validate and clean recipients
     valid_recipients = [r.strip() for r in recipients if r and "@" in r]
     if not valid_recipients:
-        print(f"No valid recipients found in: {recipients}")
+        logger.warning("No valid recipients found in: %s", recipients)
         print(html_body)
         return
 
@@ -183,27 +269,46 @@ def send_smtp(subject, html_body, recipients):
     part = MIMEText(html_body, "html")
     msg.attach(part)
 
-    try:
-        s = smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10)
-        s.starttls()
-        s.login(SMTP_USER, SMTP_PASS)
-        s.sendmail(SMTP_USER, valid_recipients, msg.as_string())
-        s.quit()
-        print(f"Email sent successfully to {valid_recipients}")
-    except Exception as e:
-        print(f"SMTP error: {e}")
-        raise
+    attempt = 1
+    while attempt <= SMTP_RETRY_ATTEMPTS:
+        try:
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=10) as s:
+                s.starttls()
+                s.login(SMTP_USER, SMTP_PASS)
+                s.sendmail(SMTP_USER, valid_recipients, msg.as_string())
+            logger.info("Email sent successfully to %s", valid_recipients)
+            return
+        except Exception as exc:
+            logger.warning("SMTP attempt %s failed: %s", attempt, exc)
+            if attempt == SMTP_RETRY_ATTEMPTS:
+                logger.error("SMTP failed after %s attempts", SMTP_RETRY_ATTEMPTS)
+                raise
+            time.sleep(SMTP_RETRY_BACKOFF ** attempt)
+            attempt += 1
+
+
+def validate_env():
+    if not GITHUB_USER:
+        raise SystemExit("TARGET_GITHUB_USERNAME env var required")
+    if AUTO_CREATE_ISSUES and not TOKEN:
+        raise SystemExit("AUTO_CREATE_ISSUES requires TARGET_GH_PAT or GITHUB_TOKEN")
+    if SMTP_USER and not SMTP_PASS:
+        raise SystemExit("SMTP_USER is configured but SMTP_PASS is missing")
 
 
 def main():
-    if not GITHUB_USER:
-        raise SystemExit("TARGET_GITHUB_USERNAME env var required")
-    print(f"SMTP_HOST set: {bool(SMTP_HOST)}")
-    print(f"SMTP_PORT set: {bool(SMTP_PORT)}")
-    print(f"SMTP_USER set: {bool(SMTP_USER)}")
-    print(f"SMTP_PASS set: {bool(SMTP_PASS)}")
-    print(f"RECIPIENTS: {RECIPIENTS}")
-    print(f"AUTO_CREATE_ISSUES: {AUTO_CREATE_ISSUES}")
+    validate_env()
+    logger.info("SMTP_HOST set: %s", bool(SMTP_HOST))
+    logger.info("SMTP_PORT set: %s", bool(SMTP_PORT))
+    logger.info("SMTP_USER set: %s", bool(SMTP_USER))
+    logger.info("SMTP_PASS set: %s", bool(SMTP_PASS))
+    logger.info("RECIPIENTS: %s", RECIPIENTS)
+    logger.info("AUTO_CREATE_ISSUES: %s", AUTO_CREATE_ISSUES)
+    if TOKEN:
+        logger.info("GitHub API token configured")
+    else:
+        logger.warning("GitHub API token missing; only public repo access will work")
+
     repos_report = gather_report(GITHUB_USER)
     summary = summarize_report(repos_report)
     dashboard_path = write_dashboard(repos_report, summary)
@@ -219,8 +324,9 @@ def main():
     if RECIPIENTS:
         send_smtp(subject, html, RECIPIENTS)
     else:
+        logger.info("No recipients configured; printing report to stdout")
         print(html)
-    print(f"Dashboard available at: {dashboard_path}")
+    logger.info("Dashboard available at: %s", dashboard_path)
 
 
 if __name__ == "__main__":

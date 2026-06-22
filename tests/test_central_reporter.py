@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import pytest
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -64,6 +65,15 @@ def test_create_issue_without_token_returns_none(monkeypatch):
     monkeypatch.setattr(cr, "TOKEN", None)
     result = cr.create_issue("owner", "repo", "title", "body", labels=["agent-report"])
     assert result is None
+
+
+def test_issue_exists_detects_duplicate(requests_mock, monkeypatch):
+    monkeypatch.setattr(cr, "TOKEN", "fake-token")
+    requests_mock.get(
+        re.compile(r"https://api\.github\.com/repos/owner/repo/issues.*"),
+        json=[{"title": "[Agent Report] Workflow failure in repo"}],
+    )
+    assert cr.issue_exists("owner", "repo", "[Agent Report] Workflow failure in repo")
 
 
 def test_render_dashboard_contains_repo_and_summary():

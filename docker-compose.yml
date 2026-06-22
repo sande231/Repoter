@@ -1,0 +1,42 @@
+version: '3.9'
+services:
+  ingestion:
+    build: .
+    container_name: synapse_ingestion
+    ports:
+      - "5000:5000"
+    environment:
+      - INGESTION_API_KEY=change-me
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./email_queue.db:/app/email_queue.db
+
+  main_agent:
+    build: .
+    container_name: synapse_main_agent
+    environment:
+      - INGESTION_URL=http://ingestion:5000
+      - REPORT_INTERVAL_SECONDS=60
+      - SMTP_HOST=smtp.example.com
+      - SMTP_PORT=587
+      - SMTP_USER=you@example.com
+      - SMTP_PASS=secret
+      - RECIPIENTS=ops@example.com
+      - LOG_LEVEL=INFO
+    depends_on:
+      - ingestion
+
+  email_worker:
+    build: .
+    container_name: synapse_email_worker
+    command: ["python", "-c", "from email_queue import worker_loop; worker_loop()"]
+    environment:
+      - SMTP_HOST=smtp.example.com
+      - SMTP_PORT=587
+      - SMTP_USER=you@example.com
+      - SMTP_PASS=secret
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./email_queue.db:/app/email_queue.db
+    depends_on:
+      - ingestion

@@ -56,9 +56,38 @@ export ISSUE_LABEL=agent-report
 pytest -q
 ```
 
-Notes:
-- `central_reporter.py` now generates `dashboard.html` and uploads it as a GitHub Actions artifact.
-- The reporter now includes request retrying, SMTP retry/backoff, repo filtering, and duplicate issue detection for better reliability.
-- `AUTO_CREATE_ISSUES` requires `TARGET_GH_PAT` or `GITHUB_TOKEN` and will skip duplicates for the same title.
-- Use a minimal-scope GitHub PAT for security, and keep SMTP/GitHub credentials in GitHub Secrets rather than in plaintext.
-- Production systems should add monitoring, persistence, secrets vaulting, and authenticated service boundaries.
+## Deployment
+
+### Docker compose
+
+A containerized deployment is available via `docker-compose.yml`:
+
+```bash
+docker compose up --build
+```
+
+The compose setup includes:
+- `ingestion` — Flask telemetry ingestion server
+- `main_agent` — periodic report collector and enqueuer
+- `email_worker` — durable email queue worker
+
+### Environment configuration
+
+Use `.env.example` as a starting point for local or containerized deployments.
+
+## Observability
+
+- Ingestion health: `GET /health`
+- Ingestion metrics: `GET /metrics`
+- Enable verbose logs with `LOG_LEVEL=DEBUG`
+
+## Security & reliability
+
+- `ingestion_server.py` can require `INGESTION_API_KEY` for API access.
+- `email_queue.py` persists outgoing emails in SQLite and retries failed sends.
+- `main_agent.py` retries ingestion API calls with backoff.
+- `central_reporter.py` retries GitHub API and SMTP, and skips duplicate issue creation.
+
+## Runbook
+
+See `RUNBOOK.md` for startup steps, troubleshooting, and operational guidance.

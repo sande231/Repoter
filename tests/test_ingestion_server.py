@@ -24,3 +24,25 @@ def test_register_and_telemetry(client):
     rv = client.post("/telemetry", json={"agent_id": "a1", "timestamp": 12345, "metrics": {"cpu": 5}})
     assert rv.status_code == 200
     assert "a1" in METRICS
+
+
+def test_health_endpoint(client):
+    rv = client.get("/health")
+    assert rv.status_code == 200
+    data = rv.get_json()
+    assert data["status"] == "ok"
+
+
+def test_api_key_protection(client, monkeypatch):
+    import ingestion_server as server
+
+    monkeypatch.setattr(server, "INGESTION_API_KEY", "secret-key")
+    rv = client.post("/register", json={"agent_id": "a2"})
+    assert rv.status_code == 401
+
+    rv = client.post(
+        "/register",
+        json={"agent_id": "a2"},
+        headers={"X-API-KEY": "secret-key"},
+    )
+    assert rv.status_code == 200
