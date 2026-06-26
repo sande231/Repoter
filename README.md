@@ -1,78 +1,90 @@
 # Synapse MainAgent Reporter
 
-**Author:** Sandeep
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-Ingestion_API-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Workflow_Reports-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
+![Author](https://img.shields.io/badge/Author-Sandeep-0B5FFF?style=for-the-badge)
 
-**Repository:** `sande231/Repoter`
+Synapse MainAgent Reporter is a Python reporting system that watches agent health, GitHub repositories, GitHub Actions workflow runs, and email delivery. It collects operational data, turns it into readable reports, and sends alerts when something needs attention.
 
-Synapse MainAgent Reporter is a Python workspace for monitoring agents, checking GitHub workflow activity, generating operational reports, and sending email alerts. It is designed as a simple reporting hub: different agents and services send status information into one place, and MainAgent turns that information into readable reports.
+The goal is simple: one place to understand what is happening across your agents and GitHub repositories.
 
-## Simple Overview
+## What The Reporter Does
 
-This project has five main parts:
+The project has two reporting paths:
 
-1. **Ingestion server** - receives agent registration and telemetry.
-2. **MainAgent reporter** - reads telemetry, detects stale or unhealthy agents, and prepares reports.
-3. **GitHub reporter** - checks repositories and workflow runs, then builds a GitHub activity report.
-4. **Email queue** - stores outgoing emails in SQLite and retries failed sends.
-5. **Agent SDK and adapters** - help other agents send data into the system.
+1. **MainAgent reporter**
+   - Receives telemetry from agents.
+   - Tracks agent health, heartbeats, failures, and problem reports.
+   - Detects stale or unhealthy agents.
+   - Attempts remediation when an agent provides a `control_url`.
+   - Sends agent performance reports by email.
 
-Canvas Tutor is included as one optional adapter. It is not the whole project; it is just one agent that can report Canvas token and connection health into MainAgent.
+2. **GitHub workflow reporter**
+   - Checks repositories under the configured GitHub account.
+   - Reads recent GitHub Actions workflow runs.
+   - Detects failed, cancelled, or unstable workflows.
+   - Builds an HTML report and dashboard.
+   - Can email a summary and optionally create GitHub issues for failures.
 
-## How It Works
+Canvas Tutor is only one optional agent adapter. The reporter is not just for Canvas; it is designed to monitor multiple agents and GitHub repositories.
+
+## System Overview
 
 ```text
-Agents / adapters
-      |
-      v
-agent_sdk.py
-      |
-      v
-ingestion_server.py
-      |
-      v
-main_agent.py
-      |
-      v
-email_queue.py -> SMTP email report
+Subordinate agents / adapters
+          |
+          v
+      agent_sdk.py
+          |
+          v
+  ingestion_server.py
+          |
+          v
+     main_agent.py
+          |
+          v
+   email_queue.py  ->  SMTP report email
 
-central_reporter.py -> GitHub API -> HTML report + dashboard
+central_reporter.py  ->  GitHub repositories + workflow runs
+                    ->  HTML report + dashboard + email
 ```
 
-## Main Files
+## Main Components
 
-| File or Folder | Simple Explanation |
+| Component | What it does |
 | --- | --- |
-| `agent_sdk.py` | Small helper used by agents to register and send telemetry. |
-| `ingestion_server.py` | Flask server that receives agent data and exposes health/metrics endpoints. |
-| `main_agent.py` | Main reporter that reads agent data, finds problems, and queues email reports. |
-| `central_reporter.py` | GitHub reporter that checks repositories, workflow runs, failures, and dashboard data. |
-| `email_queue.py` | Durable email queue backed by SQLite. |
-| `email_worker.py` | Worker entry point for sending queued email. |
-| `canvas_tutor_adapter.py` | Optional Canvas Tutor adapter for reporting Canvas connection health. |
+| `main_agent.py` | Main agent reporter for agent health, stale-agent detection, problem alerts, and report generation. |
+| `central_reporter.py` | GitHub repository and workflow reporter. It checks repositories, workflow runs, failures, and dashboard data. |
+| `ingestion_server.py` | Flask ingestion API where agents register and send telemetry. |
+| `agent_sdk.py` | Simple SDK that other agents use to send telemetry to ingestion. |
+| `email_queue.py` | SQLite-backed email queue with retry support. |
+| `email_worker.py` | Worker process that sends queued emails. |
+| `canvas_tutor_adapter.py` | Optional Canvas Tutor adapter that reports Canvas connection/token health as one monitored agent. |
 | `canvas_oauth.py` | Optional Canvas OAuth helper for schools that provide a Canvas Developer Key. |
-| `synapse_agent.py` | Larger Synapse agent/orchestrator example used for agent workflows. |
 | `templates/` | HTML templates for email reports and dashboards. |
-| `tests/` | Automated tests for the main project modules. |
-| `.github/workflows/` | GitHub Actions workflows for scheduled reports and Python checks. |
-| `docker-compose.yml` | Local multi-service Docker setup. |
-| `RUNBOOK.md` | Operational notes for startup and troubleshooting. |
+| `.github/workflows/` | GitHub Actions workflows for scheduled reporting and Python checks. |
+| `docker-compose.yml` | Local Docker setup for ingestion, reporting, email worker, and optional adapters. |
+| `RUNBOOK.md` | Operational startup and troubleshooting notes. |
 
-## Features
+## Key Features
 
-- Agent registration and heartbeat telemetry.
-- Agent problem detection and stale-agent alerts.
-- Optional self-healing calls through an agent `control_url`.
-- GitHub repository and workflow monitoring.
-- HTML report and dashboard generation.
+- Agent registration and telemetry ingestion.
+- Heartbeat monitoring for multiple agents.
+- Stale-agent and unhealthy-agent alerts.
+- Optional agent self-healing through `control_url`.
+- GitHub repository discovery and workflow monitoring.
+- HTML reports and dashboard generation.
 - Email delivery through SMTP.
-- Durable email retry queue using SQLite.
-- Docker Compose setup for local services.
-- Canvas Tutor monitoring as an optional adapter.
-- Unit tests for core behavior.
+- Durable SQLite email queue with retry behavior.
+- Docker Compose local deployment.
+- Unit tests for the core reporting and ingestion logic.
+- Optional Canvas Tutor monitoring adapter.
 
 ## Quick Start
 
-Create a virtual environment and install dependencies:
+Create a virtual environment:
 
 ```bash
 python -m venv .venv
@@ -86,7 +98,7 @@ Create your local environment file:
 cp .env.example .env
 ```
 
-Edit `.env` with your local values. Do not commit `.env`; it can contain tokens and passwords.
+Edit `.env` with your local values. Do not commit `.env`; it can contain tokens, passwords, and private API keys.
 
 Run tests:
 
@@ -94,32 +106,34 @@ Run tests:
 pytest -q
 ```
 
-## Running Locally with Docker
+## Run With Docker
 
-Start the core telemetry stack:
+Start the core reporting stack:
 
 ```bash
 docker compose up --build ingestion main_agent email_worker
 ```
 
-Start the Canvas Tutor adapter with ingestion:
+Start ingestion with the optional Canvas Tutor adapter:
 
 ```bash
 docker compose up --build ingestion canvas_tutor_adapter
 ```
 
-Check the ingestion API:
+Check ingestion health:
 
 ```bash
 curl -H "X-API-KEY: change-me" http://localhost:5000/health
 curl -H "X-API-KEY: change-me" http://localhost:5000/agents
 ```
 
-## Email Setup
+## GitHub Workflow Reporting
 
-MainAgent uses these environment variables for email:
+Configure these values in `.env`:
 
 ```env
+TARGET_GITHUB_USERNAME=sande231
+TARGET_GH_PAT=your_github_token
 RECIPIENTS=you@example.com
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
@@ -127,28 +141,41 @@ SMTP_USER=you@gmail.com
 SMTP_PASS=your_google_app_password
 ```
 
-For Gmail, `SMTP_PASS` must be a Google App Password, not your normal Gmail password.
-
-## GitHub Reporter Setup
-
-The GitHub reporter uses:
-
-```env
-TARGET_GITHUB_USERNAME=sande231
-TARGET_GH_PAT=your_github_token
-```
-
-Run it locally with:
+Run the GitHub reporter:
 
 ```bash
 python central_reporter.py
 ```
 
-The reporter can summarize repositories, workflow runs, failures, and dashboard output.
+The report shows repository activity, workflow status, failed runs, and dashboard output for the configured GitHub account.
 
-## Canvas Tutor Setup
+## Agent Reporting
 
-Canvas Tutor is optional. For a student/private setup, use a personal Canvas access token:
+Agents send data through `agent_sdk.py` into the ingestion server. MainAgent reads that data and builds a report.
+
+Typical agent telemetry includes:
+
+- Agent ID and tags.
+- Last heartbeat time.
+- Health status.
+- Completed and failed task counts.
+- Latency or custom metrics.
+- Problem messages.
+- Optional remediation endpoint.
+
+The ingestion API exposes:
+
+```text
+GET  /health
+GET  /agents
+GET  /metrics/<agent_id>
+POST /register
+POST /telemetry
+```
+
+## Optional Canvas Tutor Adapter
+
+Canvas Tutor is included as an example of one monitored agent. For a student/private setup, use a Canvas personal access token:
 
 ```env
 CANVAS_BASE_URL=https://your-school.instructure.com
@@ -156,9 +183,9 @@ CANVAS_ACCESS_TOKEN=your_canvas_access_token
 CANVAS_TUTOR_VERIFY_API=true
 ```
 
-If the token is valid, the adapter reports `HEALTHY` telemetry to MainAgent. If the token expires or is revoked, MainAgent can report that Canvas Tutor is degraded.
+If the token works, the adapter reports healthy telemetry to MainAgent. If the token expires or is revoked, MainAgent can report that Canvas Tutor is degraded.
 
-If your school provides a Canvas Developer Key, you can also use the OAuth helper:
+If a school provides a Canvas Developer Key, the optional OAuth helper can be started with:
 
 ```bash
 docker compose up --build canvas_oauth
@@ -170,19 +197,17 @@ Then open:
 http://localhost:8080/canvas/oauth/start
 ```
 
-OAuth tokens are stored under `.canvas_tokens/`, which is ignored by git.
-
-## Important Security Notes
+## Security
 
 - Never commit `.env`.
-- Never commit Canvas access tokens, GitHub tokens, SMTP passwords, or Gmail app passwords.
-- `.canvas_tokens/` and `.env` are ignored by git.
-- Use `INGESTION_API_KEY` when exposing the ingestion server outside local development.
-- Use repository secrets for GitHub Actions secrets, not plain text files.
+- Never commit Canvas tokens, GitHub tokens, SMTP passwords, or Gmail app passwords.
+- `.env` and `.canvas_tokens/` are ignored by git.
+- Use `INGESTION_API_KEY` when exposing ingestion outside local development.
+- Store production secrets in GitHub Actions secrets or a real secret manager.
 
 ## Development Checks
 
-Run the test suite:
+Run tests:
 
 ```bash
 pytest -q
@@ -194,6 +219,10 @@ Validate Docker Compose:
 docker compose config --quiet
 ```
 
-## Status
+## Project Status
 
-This project is an MVP reporting and monitoring system. It is ready for local development, testing, and incremental integrations. See `TODO.md` and `RUNBOOK.md` for planned work and operational guidance.
+This is an MVP reporting and monitoring system. It is ready for local development and incremental integrations. See `RUNBOOK.md` for operations and `TODO.md` for planned improvements.
+
+## Author
+
+Built by **Sandeep**.
