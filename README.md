@@ -1,14 +1,10 @@
 # Synapse MainAgent Reporter
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-Ingestion_API-000000?style=for-the-badge&logo=flask&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-Workflow_Reports-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)
-![Author](https://img.shields.io/badge/Author-Sandeep-0B5FFF?style=for-the-badge)
+Author: Sandeep
 
-Synapse MainAgent Reporter is a Python reporting system that watches agent health, GitHub repositories, GitHub Actions workflow runs, and email delivery. It collects operational data, turns it into readable reports, and sends alerts when something needs attention.
+Synapse MainAgent Reporter is a Python reporting tool for monitoring GitHub repositories, GitHub Actions workflow runs, and connected agents. It collects status data, creates readable reports, and sends email alerts when something needs attention.
 
-The goal is simple: one place to understand what is happening across your agents and GitHub repositories.
+The project has two main reporting roles. `main_agent.py` reports on agent health and telemetry. `central_reporter.py` reports on repositories and GitHub workflow activity. Optional adapters, such as Canvas Tutor, can send their own health data into the same reporting system.
 
 ## What The Reporter Does
 
