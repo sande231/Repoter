@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   ingestion:
     build: .
@@ -6,37 +5,93 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - INGESTION_API_KEY=change-me
-      - LOG_LEVEL=INFO
+      - INGESTION_API_KEY=${INGESTION_API_KEY:-change-me}
+      - INGESTION_API_KEY_HEADER=${INGESTION_API_KEY_HEADER:-X-API-KEY}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
       - ./email_queue.db:/app/email_queue.db
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5000/health', timeout=2).read()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 5s
 
   main_agent:
     build: .
     container_name: synapse_main_agent
     environment:
       - INGESTION_URL=http://ingestion:5000
-      - REPORT_INTERVAL_SECONDS=60
-      - SMTP_HOST=smtp.example.com
-      - SMTP_PORT=587
-      - SMTP_USER=you@example.com
-      - SMTP_PASS=secret
-      - RECIPIENTS=ops@example.com
-      - LOG_LEVEL=INFO
+      - INGESTION_API_KEY=${INGESTION_API_KEY:-change-me}
+      - INGESTION_API_KEY_HEADER=${INGESTION_API_KEY_HEADER:-X-API-KEY}
+      - REPORT_INTERVAL_SECONDS=${REPORT_INTERVAL_SECONDS:-60}
+      - SMTP_HOST=${SMTP_HOST:-smtp.example.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - RECIPIENTS=${RECIPIENTS:-ops@example.com}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     depends_on:
-      - ingestion
+      ingestion:
+        condition: service_healthy
 
   email_worker:
     build: .
     container_name: synapse_email_worker
     command: ["python", "-c", "from email_queue import worker_loop; worker_loop()"]
     environment:
-      - SMTP_HOST=smtp.example.com
-      - SMTP_PORT=587
-      - SMTP_USER=you@example.com
-      - SMTP_PASS=secret
-      - LOG_LEVEL=INFO
+      - SMTP_HOST=${SMTP_HOST:-smtp.example.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
       - ./email_queue.db:/app/email_queue.db
     depends_on:
-      - ingestion
+      ingestion:
+        condition: service_healthy
+
+  canvas_oauth:
+    build: .
+    container_name: synapse_canvas_oauth
+    command: ["python", "canvas_oauth.py", "serve"]
+    ports:
+      - "8080:8080"
+    environment:
+      - CANVAS_BASE_URL=${CANVAS_BASE_URL:-}
+      - CANVAS_CLIENT_ID=${CANVAS_CLIENT_ID:-}
+      - CANVAS_CLIENT_SECRET=${CANVAS_CLIENT_SECRET:-}
+      - CANVAS_REDIRECT_URI=${CANVAS_REDIRECT_URI:-http://localhost:8080/canvas/oauth/callback}
+      - CANVAS_OAUTH_HOST=0.0.0.0
+      - CANVAS_OAUTH_PORT=8080
+      - CANVAS_OAUTH_SCOPES=${CANVAS_OAUTH_SCOPES:-}
+      - CANVAS_REPLACE_TOKENS=${CANVAS_REPLACE_TOKENS:-false}
+      - CANVAS_TOKEN_STORE=/app/.canvas_tokens/canvas_token.json
+    volumes:
+      - ./.canvas_tokens:/app/.canvas_tokens
+
+  canvas_tutor_adapter:
+    build: .
+    container_name: synapse_canvas_tutor_adapter
+    command: ["python", "canvas_tutor_adapter.py"]
+    environment:
+      - INGESTION_URL=http://ingestion:5000
+      - INGESTION_API_KEY=${INGESTION_API_KEY:-change-me}
+      - INGESTION_API_KEY_HEADER=${INGESTION_API_KEY_HEADER:-X-API-KEY}
+      - AGENT_CONTROL_URL=${AGENT_CONTROL_URL:-http://localhost:9000/control}
+      - CANVAS_TUTOR_AGENT_ID=${CANVAS_TUTOR_AGENT_ID:-canvas-tutor-agent}
+      - CANVAS_TUTOR_HEARTBEAT_INTERVAL_SECONDS=${CANVAS_TUTOR_HEARTBEAT_INTERVAL_SECONDS:-60}
+      - CANVAS_TUTOR_SESSION_COUNT=${CANVAS_TUTOR_SESSION_COUNT:-0}
+      - CANVAS_BASE_URL=${CANVAS_BASE_URL:-}
+      - CANVAS_CLIENT_ID=${CANVAS_CLIENT_ID:-}
+      - CANVAS_CLIENT_SECRET=${CANVAS_CLIENT_SECRET:-}
+      - CANVAS_REDIRECT_URI=${CANVAS_REDIRECT_URI:-http://localhost:8080/canvas/oauth/callback}
+      - CANVAS_TOKEN_STORE=/app/.canvas_tokens/canvas_token.json
+      - CANVAS_ACCESS_TOKEN=${CANVAS_ACCESS_TOKEN:-}
+      - CANVAS_TUTOR_VERIFY_API=${CANVAS_TUTOR_VERIFY_API:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      - ./.canvas_tokens:/app/.canvas_tokens
+    depends_on:
+      ingestion:
+        condition: service_healthy

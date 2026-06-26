@@ -11,6 +11,8 @@ __pycache__/
 .env
 .env.*
 !.env.example
+.canvas_token.json
+.canvas_tokens/
 
 # IDE
 .vscode/

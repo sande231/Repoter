@@ -8,16 +8,48 @@
       th, td { border: 1px solid #ddd; padding: 8px }
       th { background: #f2f2f2 }
       .agent { margin-bottom: 24px }
+      .alert { background: #ffe6e6; border: 1px solid #ffcccc; padding: 12px; margin-bottom: 24px; }
+      .alert h2 { margin-top: 0; }
     </style>
   </head>
   <body>
     <h1>Agent Performance Report</h1>
     <p>Generated at: {{ generated_at }}</p>
 
+    {% if stale_agents %}
+    <div class="alert">
+      <h2>Stale agents detected</h2>
+      <p>The following agents have not reported within the configured heartbeat threshold:</p>
+      <ul>
+        {% for s in stale_agents %}
+        <li>{{ s.agent_id }} — last seen {{ s.age_seconds }} seconds ago</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
     {% for a in agents %}
     <div class="agent">
       <h2>{{ a.agent_id }}</h2>
       <p>Info: {{ a.info }}</p>
+      {% if a.problems %}
+      <div class="alert">
+        <h3>Agent problems</h3>
+        <ul>
+          {% for p in a.problems %}
+          <li><strong>{{ p.status|upper() }}</strong>: {{ p.message }}{% if p.severity %} ({{ p.severity }}){% endif %}</li>
+          {% endfor %}
+        </ul>
+        {% if a.fix_result %}
+        <p><strong>Remediation:</strong> {{ 'Succeeded' if a.fix_result.success else 'Failed' }}</p>
+        <ul>
+          {% for attempt in a.fix_result.attempts %}
+          <li>{{ attempt.endpoint }} — {% if attempt.ok %}OK{% else %}{{ attempt.error or 'HTTP ' ~ attempt.status_code }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+      {% endif %}
       {% if a.stats %}
       <table>
         <thead><tr><th>Metric</th><th>Count</th><th>Avg</th><th>Min</th><th>Max</th></tr></thead>
