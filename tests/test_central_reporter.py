@@ -22,6 +22,21 @@ def test_summarize_report():
     assert summary["failed"] == 1
     assert summary["in_progress"] == 1
     assert summary["no_workflow"] == 1
+    assert summary["needs_attention"] == 1
+    assert summary["health_score"] == 33
+
+
+def test_repo_health_classifies_attention_and_no_workflow():
+    failed_repo = {"status": {"status": "completed", "conclusion": "failure"}}
+    no_workflow_repo = {"status": None}
+
+    failed_health = cr.repo_health(failed_repo)
+    no_workflow_health = cr.repo_health(no_workflow_repo)
+
+    assert failed_health["label"] == "Needs attention"
+    assert failed_health["needs_attention"] is True
+    assert no_workflow_health["label"] == "No workflow"
+    assert no_workflow_health["needs_attention"] is False
 
 
 def test_gather_report_with_workflow_status(requests_mock):
@@ -99,6 +114,8 @@ def test_render_dashboard_contains_repo_and_summary():
         "failed": 0,
         "in_progress": 0,
         "no_workflow": 0,
+        "needs_attention": 0,
+        "health_score": 100,
     }
 
     html = cr.render_dashboard(repos, summary)
@@ -106,6 +123,32 @@ def test_render_dashboard_contains_repo_and_summary():
     assert "GitHub Agent Dashboard" in html
     assert "repo1" in html
     assert "Total repos" in html
+    assert "Health score" in html
+
+
+def test_render_report_includes_attention_section():
+    repos = [
+        {
+            "name": "repo1",
+            "description": "A sample repository",
+            "stars": 1,
+            "forks": 0,
+            "status": {
+                "status": "completed",
+                "conclusion": "failure",
+                "html_url": "https://github.com/testuser/repo1/actions/runs/1",
+                "updated_at": "2026-06-21T00:05:00Z",
+                "name": "CI",
+            },
+        }
+    ]
+    summary = cr.summarize_report(repos)
+
+    html = cr.render_report(repos, summary)
+
+    assert "Repositories that need attention" in html
+    assert "repo1" in html
+    assert "Needs attention" in html
 
 
 def test_build_issue_body_includes_status():

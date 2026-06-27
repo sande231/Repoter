@@ -8,6 +8,12 @@
       th, td { border: 1px solid #ddd; padding: 8px }
       th { background: #f2f2f2 }
       .summary { margin-bottom: 24px }
+      .attention { background: #fff5e6; border: 1px solid #ffd9a8; padding: 12px; margin-bottom: 24px; }
+      .attention h2 { margin-top: 0; }
+      .health-healthy { color: #1a7f37; font-weight: bold; }
+      .health-attention, .health-unknown { color: #b42318; font-weight: bold; }
+      .health-in_progress { color: #9a6700; font-weight: bold; }
+      .health-no_workflow { color: #57606a; }
       .repo-description { color: #555; font-size: 0.95em; margin-top: 4px }
     </style>
   </head>
@@ -22,13 +28,30 @@
       <p><strong>Failed / non-success runs:</strong> {{ summary.failed }}</p>
       <p><strong>In progress:</strong> {{ summary.in_progress }}</p>
       <p><strong>No workflows:</strong> {{ summary.no_workflow }}</p>
+      <p><strong>Needs attention:</strong> {{ summary.needs_attention }}</p>
+      <p><strong>Workflow health score:</strong> {{ summary.health_score }}%</p>
     </div>
+
+    {% if attention_repos %}
+    <div class="attention">
+      <h2>Repositories that need attention</h2>
+      <ul>
+        {% for r in attention_repos %}
+        <li>
+          <strong>{{ r.name }}</strong> - {{ r.health.reason }}
+          {% if r.status and r.status.html_url %}<a href="{{ r.status.html_url }}">View run</a>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
 
     <table>
       <thead>
         <tr>
           <th>Repository</th>
           <th>Description</th>
+          <th>Health</th>
           <th>Stars</th>
           <th>Forks</th>
           <th>Status</th>
@@ -42,6 +65,7 @@
         <tr>
           <td>{{ r.name }}</td>
           <td>{{ r.description or '-' }}</td>
+          <td><span class="health-{{ r.health.state }}">{{ r.health.label }}</span></td>
           <td>{{ r.stars }}</td>
           <td>{{ r.forks }}</td>
           <td>{{ r.status.status if r.status else 'n/a' }}</td>

@@ -14,6 +14,10 @@
       .status-success { color: #1a7f37; font-weight: bold; }
       .status-failed { color: #c81e1e; font-weight: bold; }
       .status-in_progress { color: #bd8f00; font-weight: bold; }
+      .health-healthy { color: #1a7f37; font-weight: bold; }
+      .health-attention, .health-unknown { color: #c81e1e; font-weight: bold; }
+      .health-in_progress { color: #bd8f00; font-weight: bold; }
+      .health-no_workflow { color: #57606a; }
     </style>
   </head>
   <body>
@@ -26,12 +30,15 @@
       <div class="metric"><strong>{{ summary.failed }}</strong>Failed</div>
       <div class="metric"><strong>{{ summary.in_progress }}</strong>In progress</div>
       <div class="metric"><strong>{{ summary.no_workflow }}</strong>No workflows</div>
+      <div class="metric"><strong>{{ summary.needs_attention }}</strong>Needs attention</div>
+      <div class="metric"><strong>{{ summary.health_score }}%</strong>Health score</div>
     </div>
     <table>
       <thead>
         <tr>
           <th>Repository</th>
           <th>Description</th>
+          <th>Health</th>
           <th>Stars</th>
           <th>Forks</th>
           <th>Latest status</th>
@@ -45,6 +52,7 @@
         <tr>
           <td>{{ r.name }}</td>
           <td>{{ r.description or '-' }}</td>
+          <td><span class="health-{{ r.health.state }}">{{ r.health.label }}</span></td>
           <td>{{ r.stars }}</td>
           <td>{{ r.forks }}</td>
           <td>{% if r.status %}<span class="status-{{ r.status.status }}">{{ r.status.status }}</span>{% else %}n/a{% endif %}</td>

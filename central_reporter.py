@@ -127,6 +127,8 @@ def summarize_report(repos_report):
     failed = sum(1 for r in repos_report if r["status"] and r["status"]["conclusion"] not in (None, "success"))
     in_progress = sum(1 for r in repos_report if r["status"] and r["status"]["status"] == "in_progress")
     no_workflow = total - with_workflow
+    needs_attention = [r for r in repos_report if repo_health(r)["needs_attention"]]
+    health_score = round((successful / with_workflow) * 100) if with_workflow else 0
     return {
         "total_repos": total,
         "with_workflow": with_workflow,
@@ -134,7 +136,59 @@ def summarize_report(repos_report):
         "failed": failed,
         "in_progress": in_progress,
         "no_workflow": no_workflow,
+        "needs_attention": len(needs_attention),
+        "health_score": health_score,
     }
+
+
+def repo_health(repo):
+    status = repo.get("status")
+    if not status:
+        return {
+            "state": "no_workflow",
+            "label": "No workflow",
+            "needs_attention": False,
+            "reason": "No GitHub Actions workflow runs found.",
+        }
+
+    workflow_status = status.get("status")
+    conclusion = status.get("conclusion")
+    if workflow_status in {"in_progress", "queued", "requested", "waiting", "pending"}:
+        return {
+            "state": "in_progress",
+            "label": "In progress",
+            "needs_attention": False,
+            "reason": "Latest workflow run is still active.",
+        }
+    if workflow_status == "completed" and conclusion == "success":
+        return {
+            "state": "healthy",
+            "label": "Healthy",
+            "needs_attention": False,
+            "reason": "Latest workflow run completed successfully.",
+        }
+    if workflow_status == "completed":
+        return {
+            "state": "attention",
+            "label": "Needs attention",
+            "needs_attention": True,
+            "reason": f"Latest workflow completed with conclusion: {conclusion or 'unknown'}.",
+        }
+    return {
+        "state": "unknown",
+        "label": "Unknown",
+        "needs_attention": True,
+        "reason": f"Latest workflow status is {workflow_status or 'unknown'}.",
+    }
+
+
+def with_repo_health(repos_report):
+    hydrated = []
+    for repo in repos_report:
+        repo_with_health = dict(repo)
+        repo_with_health["health"] = repo.get("health") or repo_health(repo)
+        hydrated.append(repo_with_health)
+    return hydrated
 
 
 def filter_repos(repos):
@@ -167,7 +221,7 @@ def gather_report(username):
             "updated_at": r.get("updated_at"),
             "status": status,
         })
-    return report
+    return with_repo_health(report)
 
 
 def issue_exists(owner, repo, title):
@@ -189,12 +243,20 @@ def issue_exists(owner, repo, title):
 
 def render_report(repos_report, summary):
     tmpl = env.get_template("report_github.html")
-    return tmpl.render(repos=repos_report, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+    repos = with_repo_health(repos_report)
+    attention_repos = [repo for repo in repos if repo["health"]["needs_attention"]]
+    return tmpl.render(
+        repos=repos,
+        attention_repos=attention_repos,
+        summary=summary,
+        generated_at=time.strftime("%Y-%m-%d %H:%M:%S"),
+    )
 
 
 def render_dashboard(repos_report, summary):
     tmpl = env.get_template("dashboard.html")
-    return tmpl.render(repos=repos_report, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
+    repos = with_repo_health(repos_report)
+    return tmpl.render(repos=repos, summary=summary, generated_at=time.strftime("%Y-%m-%d %H:%M:%S"))
 
 
 def write_dashboard(repos_report, summary, path="dashboard.html"):
