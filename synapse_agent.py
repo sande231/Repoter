@@ -54,6 +54,7 @@ from typing import Any, Optional
 
 import anthropic
 import schedule
+from agent_sdk import AgentSDK
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -65,6 +66,11 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 log = logging.getLogger("synapse")
+
+INGESTION_URL = os.environ.get("INGESTION_URL")
+INGESTION_API_KEY = os.environ.get("INGESTION_API_KEY")
+INGESTION_API_KEY_HEADER = os.environ.get("INGESTION_API_KEY_HEADER", "X-API-KEY")
+AGENT_CONTROL_URL = os.environ.get("AGENT_CONTROL_URL")
 
 
 # ---------------------------------------------------------------------------
@@ -236,6 +242,61 @@ class _AgentRegistry:
 
 
 registry = _AgentRegistry()
+
+
+def _is_ingestion_enabled() -> bool:
+    return bool(INGESTION_URL)
+
+
+def _agent_ingestion_client(agent: AgentBase) -> AgentSDK:
+    return AgentSDK(
+        agent_id=agent.agent_id,
+        ingestion_url=INGESTION_URL,
+        tags={"agent_type": agent.agent_type, "agent_name": agent.agent_name},
+        api_key=INGESTION_API_KEY,
+        api_key_header=INGESTION_API_KEY_HEADER,
+    )
+
+
+def _build_agent_info(agent: AgentBase) -> dict:
+    info = {
+        "name": agent.agent_name,
+        "type": agent.agent_type,
+        "description": agent.description(),
+        "version": agent.version,
+    }
+    if AGENT_CONTROL_URL:
+        info["control_url"] = AGENT_CONTROL_URL
+    return info
+
+
+def _build_agent_metrics(agent: AgentBase) -> dict:
+    metrics = agent.get_metrics()
+    return {
+        "status": metrics.status,
+        "uptime_seconds": metrics.uptime_seconds,
+        "tasks_completed": metrics.tasks_completed,
+        "tasks_failed": metrics.tasks_failed,
+        "tasks_in_progress": metrics.tasks_in_progress,
+        "success_rate": metrics.success_rate,
+        "error_rate": metrics.error_rate,
+        "avg_latency_ms": metrics.avg_latency_ms,
+        "p95_latency_ms": metrics.p95_latency_ms,
+        "last_task_at": metrics.last_task_at,
+        "custom_metrics": metrics.custom_metrics,
+    }
+
+
+def _publish_agent_to_ingestion(agent: AgentBase) -> None:
+    if not _is_ingestion_enabled():
+        return
+    try:
+        sdk = _agent_ingestion_client(agent)
+        sdk.register(_build_agent_info(agent))
+        sdk.send_metrics(_build_agent_metrics(agent))
+        log.debug("Published ingestion data for %s", agent.agent_id)
+    except Exception as exc:
+        log.warning("Failed to publish ingestion data for %s: %s", agent.agent_id, exc)
 
 
 # ---------------------------------------------------------------------------
@@ -758,6 +819,10 @@ class OrchestratorAgent(AgentBase):
         if not result.success:
             log.error("[Orchestrator] Report cycle failed: %s", result.error)
 
+        if _is_ingestion_enabled():
+            for agent in registry.all():
+                _publish_agent_to_ingestion(agent)
+
         self._period_start = period_end          # advance window for next cycle
         return final_report
 
@@ -1093,8 +1158,13 @@ def main() -> None:
     )
 
     # Register subordinate agents with the shared registry
-    for agent in [ocr, email_agent, analytics]:
+    for agent in [ocr, email_agent, analytics, orchestrator]:
         registry.register(agent)
+
+    if _is_ingestion_enabled():
+        log.info("Publishing initial agent registrations to ingestion server %s", INGESTION_URL)
+        for agent in registry.all():
+            _publish_agent_to_ingestion(agent)
 
     log.info("Synapse ready. %d agents registered.", len(registry))
 

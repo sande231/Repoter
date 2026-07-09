@@ -65,13 +65,45 @@ class CanvasTutorAdapter:
     def register(self) -> None:
         """Register the Canvas Tutor agent with the ingestion server."""
         info = self._build_info()
-        self.sdk.register(info)
+        response = self.sdk.register(info)
+        if response is None:
+            print(
+                f"Canvas Tutor registration deferred for {self.agent_id}: "
+                f"{self.sdk.last_error}"
+            )
+            return
         print(f"Registered Canvas Tutor agent {self.agent_id} to {self.ingestion_url}")
+
+    def _local_queue_pending_count(self) -> int | None:
+        local_queue = getattr(self.sdk, "local_queue", None)
+        if not local_queue:
+            return None
+        try:
+            return local_queue.get_pending_count()
+        except Exception:
+            return None
 
     def publish_telemetry(self, success: bool, latency_ms: int, extra: dict[str, Any] | None = None) -> None:
         """Send a telemetry update for the Canvas Tutor agent."""
         metrics = self._build_metrics(success=success, latency_ms=latency_ms, extra=extra)
-        self.sdk.send_metrics(metrics)
+        pending_before = self._local_queue_pending_count()
+        if pending_before is not None:
+            metrics["local_queue_pending"] = pending_before
+
+        response = self.sdk.send_metrics(metrics)
+        pending_after = self._local_queue_pending_count()
+        if response is None:
+            queue_note = (
+                f"; local_queue_pending={pending_after}"
+                if pending_after is not None
+                else ""
+            )
+            print(
+                f"Telemetry deferred for {self.agent_id}: "
+                f"{self.sdk.last_error}{queue_note}"
+            )
+            return
+
         print(f"Published telemetry for {self.agent_id}: status={metrics['status']}")
 
     def report_problem(self, message: str, severity: str = "critical", details: dict[str, Any] | None = None) -> None:

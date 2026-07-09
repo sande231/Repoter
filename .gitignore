@@ -13,6 +13,20 @@ __pycache__/
 !.env.example
 .canvas_token.json
 .canvas_tokens/
+telemetry_queue.db
+.telemetry_queue.db
 
 # IDE
 .vscode/
+
+# Databases (all SQLite files)
+*.db
+*.db-wal
+*.db-shm
+
+# Backup files from integration work
+*.backup
+*.py.backup
+
+# Generated agent configs
+config_*.json

@@ -12,9 +12,11 @@ def test_publish_heartbeat_sends_healthy_telemetry(monkeypatch):
     class FakeSDK:
         def __init__(self, **kwargs):
             self.kwargs = kwargs
+            self.last_error = None
 
         def send_metrics(self, metrics):
             sent_metrics.append(metrics)
+            return object()
 
     monkeypatch.setattr("canvas_tutor_adapter.AgentSDK", FakeSDK)
     monkeypatch.delenv("CANVAS_BASE_URL", raising=False)
@@ -43,9 +45,11 @@ def test_publish_heartbeat_degrades_when_canvas_token_missing(monkeypatch, tmp_p
     class FakeSDK:
         def __init__(self, **kwargs):
             self.kwargs = kwargs
+            self.last_error = None
 
         def send_metrics(self, metrics):
             sent_metrics.append(metrics)
+            return object()
 
     monkeypatch.setattr("canvas_tutor_adapter.AgentSDK", FakeSDK)
     monkeypatch.setenv("CANVAS_BASE_URL", "https://school.instructure.com")
