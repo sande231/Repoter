@@ -1,0 +1,68 @@
+Study Tracker running with self-healing (Ctrl+C to stop)
+{"timestamp": "2026-07-09T19:35:45.700Z", "event": "healable_agent_startup", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:35:45.703Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:35:45.703Z", "event": "self_healing_manager_started", "agent_id": "study-tracker", "check_interval": 15}
+{"timestamp": "2026-07-09T19:35:45.704Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:36:00.712Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:36:15.720Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:36:30.728Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:36:45.715Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:36:45.736Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:37:00.743Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:37:15.751Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:37:30.759Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:37:45.727Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:37:45.767Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:38:00.775Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:38:00.775Z", "event": "agent_degraded_start", "agent_id": "study-tracker", "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:38:15.784Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:38:15.784Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 44.991118, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:38:30.791Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:38:30.791Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 29.984225, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:38:45.738Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:38:45.799Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:38:45.800Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 14.975563999999999, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:39:00.807Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_triggered", "agent_id": "study-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.032283, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_shutdown_start", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:00.808Z", "event": "healable_agent_shutdown", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_waiting", "agent_id": "study-tracker", "wait_seconds": 10}
+{"timestamp": "2026-07-09T19:39:10.809Z", "event": "auto_restart_startup_start", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:10.810Z", "event": "healable_agent_startup", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:10.816Z", "event": "auto_restart_completed_successfully", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:25.824Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:40.832Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:39:45.750Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:39:55.840Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:40:10.848Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:40:25.857Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:40:40.866Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:40:45.760Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:40:55.872Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:41:10.880Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:41:25.888Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:41:25.888Z", "event": "agent_degraded_start", "agent_id": "study-tracker", "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:41:40.895Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:41:40.896Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 44.99228, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:41:45.770Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:41:55.904Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:41:55.905Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 29.98354, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:42:10.911Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:10.912Z", "event": "agent_still_degraded", "agent_id": "study-tracker", "seconds_until_restart": 14.97656, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:42:25.918Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_triggered", "agent_id": "study-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.030757, "error_rate": 0.0}
+{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_shutdown_start", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:25.919Z", "event": "healable_agent_shutdown", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_waiting", "agent_id": "study-tracker", "wait_seconds": 10}
+{"timestamp": "2026-07-09T19:42:35.920Z", "event": "auto_restart_startup_start", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:35.921Z", "event": "healable_agent_startup", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:35.927Z", "event": "auto_restart_completed_successfully", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:42:45.780Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:42:50.934Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:43:05.940Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:43:20.948Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:43:35.955Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:43:45.790Z", "event": "totals_reported", "agent_id": "study-tracker", "total": 4.5}
+{"timestamp": "2026-07-09T19:43:50.963Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:44:05.972Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}
+{"timestamp": "2026-07-09T19:44:20.981Z", "event": "queue_healer_no_queue", "agent_id": "study-tracker"}

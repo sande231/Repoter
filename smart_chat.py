@@ -64,6 +64,60 @@ TOOLS = [
             "required": ["agent_id"],
         },
     },
+    {
+        "name": "create_tracker_agent",
+        "description": "CREATE A BRAND NEW tracker agent when the user asks to make/build an agent that tracks something (study hours, water intake, pushups, expenses, etc.). Generates a complete self-healing agent file.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "agent_id": {"type": "string", "description": "Short lowercase id with hyphens, e.g. 'study-tracker'"},
+                "name": {"type": "string", "description": "Human-friendly name, e.g. 'Study Tracker'"},
+                "description": {"type": "string", "description": "One line: what it tracks"},
+                "unit": {"type": "string", "description": "Unit of measurement, e.g. 'hours', 'liters', 'reps', 'dollars'"},
+                "categories": {
+                    "type": "array", "items": {"type": "string"},
+                    "description": "Allowed categories, e.g. ['math','physics']. Empty list = any category allowed.",
+                },
+            },
+            "required": ["agent_id", "name", "description", "unit", "categories"],
+        },
+    },
+    {
+        "name": "start_factory_agent",
+        "description": "Start a factory-created agent so it registers with Synapse and reports telemetry. Use after creating an agent, or when the user asks to start one.",
+        "input_schema": {
+            "type": "object",
+            "properties": {"agent_id": {"type": "string"}},
+            "required": ["agent_id"],
+        },
+    },
+    {
+        "name": "list_factory_agents",
+        "description": "List all agents created by the factory.",
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "log_to_agent",
+        "description": "Log an entry into any factory-created agent (e.g. 'log 2 hours of math' into study-tracker). NOT for distances - use log_distance for travel.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "agent_id": {"type": "string"},
+                "amount": {"type": "number"},
+                "category": {"type": "string"},
+            },
+            "required": ["agent_id", "amount", "category"],
+        },
+    },
+    {
+        "name": "get_agent_today",
+        "description": "Get today's totals for a factory-created agent.",
+        "input_schema": {
+            "type": "object",
+            "properties": {"agent_id": {"type": "string"}},
+            "required": ["agent_id"],
+        },
+    },
 ]
 
 # ---------------------------------------------------------------
@@ -108,6 +162,32 @@ def execute_tool(name: str, tool_input: dict) -> str:
             latest = data[-1]["metrics"] if data else {}
             return json.dumps({"entries_last_hour": len(data), "latest_metrics": latest})
 
+        if name == "create_tracker_agent":
+            import agent_factory
+            return json.dumps(agent_factory.create_agent(
+                tool_input["agent_id"], tool_input["name"],
+                tool_input["description"], tool_input["unit"],
+                tool_input.get("categories", []),
+            ))
+
+        if name == "start_factory_agent":
+            import agent_factory
+            return json.dumps(agent_factory.start_agent(tool_input["agent_id"]))
+
+        if name == "list_factory_agents":
+            import agent_factory
+            return json.dumps(agent_factory.list_agents())
+
+        if name == "log_to_agent":
+            import agent_factory
+            return json.dumps(agent_factory.log_entry(
+                tool_input["agent_id"], tool_input["amount"], tool_input["category"],
+            ))
+
+        if name == "get_agent_today":
+            import agent_factory
+            return json.dumps(agent_factory.get_today(tool_input["agent_id"]))
+
         return json.dumps({"error": f"Unknown tool: {name}"})
 
     except requests.exceptions.ConnectionError:
@@ -126,8 +206,16 @@ You can:
 - Log distances the user traveled (walking/driving/cycling/running/transit)
 - Report today's travel totals
 - Check the health/status of their monitoring agents
+- CREATE NEW TRACKER AGENTS on request (study hours, water intake, pushups, expenses, anything measurable)
+- Log entries into any created agent and report its totals
 
-Keep replies short and friendly. Use the tools whenever relevant. If the user mentions traveling somewhere with a distance, log it. Convert miles to km."""
+When the user asks you to make/build an agent:
+1. Pick a sensible agent_id, unit, and categories (confirm with the user if ambiguous)
+2. Call create_tracker_agent
+3. Then call start_factory_agent so it joins the Synapse fleet
+4. Tell them how to log entries (they can just tell you naturally)
+
+Keep replies short and friendly. Use tools whenever relevant. Convert miles to km."""
 
 
 def chat_turn(client, messages):

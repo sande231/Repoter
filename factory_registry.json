@@ -1,0 +1,14 @@
+{
+  "study-tracker": {
+    "name": "Study Tracker",
+    "description": "Tracks daily study hours broken down by subject",
+    "unit": "hours",
+    "categories": [
+      "math",
+      "physics",
+      "english"
+    ],
+    "file": "study_tracker.py",
+    "created_at": "2026-07-09T13:43:00.493257"
+  }
+}
