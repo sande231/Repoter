@@ -10,5 +10,13 @@
     ],
     "file": "study_tracker.py",
     "created_at": "2026-07-09T13:43:00.493257"
+  },
+  "water-tracker": {
+    "name": "Water Intake Tracker",
+    "description": "Tracks daily water intake in liters",
+    "unit": "liters",
+    "categories": [],
+    "file": "water_tracker.py",
+    "created_at": "2026-07-09T23:12:06.877924"
   }
 }

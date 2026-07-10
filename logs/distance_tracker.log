@@ -1,68 +1,236 @@
 🏃 Distance Tracker agent running with self-healing (Ctrl+C to stop)
-{"timestamp": "2026-07-09T19:35:45.700Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:35:45.703Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:35:45.704Z", "event": "self_healing_manager_started", "agent_id": "distance-tracker", "check_interval": 15}
-{"timestamp": "2026-07-09T19:35:45.705Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:36:00.713Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:36:15.721Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:36:30.729Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:36:45.716Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:36:45.736Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:37:00.744Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:37:15.751Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:37:30.759Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:37:45.728Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:37:45.767Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:38:00.775Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:38:00.775Z", "event": "agent_degraded_start", "agent_id": "distance-tracker", "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:38:15.784Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:38:15.784Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 44.991248999999996, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:38:30.791Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:38:30.792Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 29.983655, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:38:45.739Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:38:45.800Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:38:45.800Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 14.975513999999997, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:39:00.808Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_triggered", "agent_id": "distance-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.032332, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_shutdown_start", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:00.808Z", "event": "healable_agent_shutdown", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:00.808Z", "event": "auto_restart_waiting", "agent_id": "distance-tracker", "wait_seconds": 10}
-{"timestamp": "2026-07-09T19:39:10.809Z", "event": "auto_restart_startup_start", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:10.810Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:10.815Z", "event": "auto_restart_completed_successfully", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:25.823Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:40.832Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:39:45.750Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:39:55.840Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:40:10.848Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:40:25.857Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:40:40.866Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:40:45.761Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:40:55.872Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:41:10.879Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:41:25.888Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:41:25.888Z", "event": "agent_degraded_start", "agent_id": "distance-tracker", "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:41:40.895Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:41:40.896Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 44.992311, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:41:45.771Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:41:55.904Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:41:55.904Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 29.983588, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:42:10.911Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:10.911Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 14.976565999999998, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:42:25.919Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_triggered", "agent_id": "distance-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.030844, "error_rate": 0.0}
-{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_shutdown_start", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:25.919Z", "event": "healable_agent_shutdown", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:25.919Z", "event": "auto_restart_waiting", "agent_id": "distance-tracker", "wait_seconds": 10}
-{"timestamp": "2026-07-09T19:42:35.920Z", "event": "auto_restart_startup_start", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:35.921Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:35.927Z", "event": "auto_restart_completed_successfully", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:42:45.780Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:42:50.934Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:43:05.940Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:43:20.947Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:43:35.955Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:43:45.790Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
-{"timestamp": "2026-07-09T19:43:50.963Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:44:05.972Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
-{"timestamp": "2026-07-09T19:44:20.980Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:54:40.153Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:54:40.156Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:54:40.157Z", "event": "self_healing_manager_started", "agent_id": "distance-tracker", "check_interval": 15}
+{"timestamp": "2026-07-09T21:54:40.157Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:54:55.167Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:55:10.175Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:55:25.181Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:55:40.167Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:55:40.187Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:55:55.194Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:56:10.201Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:56:25.208Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:56:40.176Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:56:40.216Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:56:55.223Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:56:55.223Z", "event": "agent_degraded_start", "agent_id": "distance-tracker", "error_rate": 0.0}
+{"timestamp": "2026-07-09T21:57:10.231Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:10.231Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 44.992011, "error_rate": 0.0}
+{"timestamp": "2026-07-09T21:57:25.239Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:25.239Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 29.98407, "error_rate": 0.0}
+{"timestamp": "2026-07-09T21:57:40.184Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:57:40.245Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:40.245Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 14.977513000000002, "error_rate": 0.0}
+{"timestamp": "2026-07-09T21:57:55.253Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:55.253Z", "event": "auto_restart_triggered", "agent_id": "distance-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.029968, "error_rate": 0.0}
+{"timestamp": "2026-07-09T21:57:55.253Z", "event": "auto_restart_shutdown_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:55.253Z", "event": "healable_agent_shutdown", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:57:55.253Z", "event": "auto_restart_waiting", "agent_id": "distance-tracker", "wait_seconds": 10}
+{"timestamp": "2026-07-09T21:58:05.254Z", "event": "auto_restart_startup_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:58:05.255Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:58:05.261Z", "event": "auto_restart_completed_successfully", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:58:20.268Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:58:35.275Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:58:40.194Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:58:50.282Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:59:05.289Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:59:20.296Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:59:35.303Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T21:59:40.204Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T21:59:50.311Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:00:05.318Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:00:20.326Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:00:20.326Z", "event": "agent_degraded_start", "agent_id": "distance-tracker", "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:00:35.333Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:00:35.333Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 44.993333, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:00:40.213Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:00:50.340Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:00:50.340Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 29.986296, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:01:05.348Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:05.348Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 14.978033000000003, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:01:20.355Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:20.356Z", "event": "auto_restart_triggered", "agent_id": "distance-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.02953, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:01:20.356Z", "event": "auto_restart_shutdown_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:20.356Z", "event": "healable_agent_shutdown", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:20.356Z", "event": "auto_restart_waiting", "agent_id": "distance-tracker", "wait_seconds": 10}
+{"timestamp": "2026-07-09T22:01:30.357Z", "event": "auto_restart_startup_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:30.358Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:30.364Z", "event": "auto_restart_completed_successfully", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:01:40.226Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:01:45.372Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:02:00.379Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:02:15.384Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:02:30.393Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:02:40.238Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:02:45.401Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:03:00.409Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:03:15.415Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:03:30.424Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:03:40.249Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:03:45.432Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:03:45.432Z", "event": "agent_degraded_start", "agent_id": "distance-tracker", "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:04:00.438Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:00.438Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 44.993926, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:04:15.447Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:15.447Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 29.984819, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:04:30.455Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:30.456Z", "event": "agent_still_degraded", "agent_id": "distance-tracker", "seconds_until_restart": 14.975983999999997, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:04:40.260Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:04:45.466Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:45.467Z", "event": "auto_restart_triggered", "agent_id": "distance-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.035568, "error_rate": 0.0}
+{"timestamp": "2026-07-09T22:04:45.468Z", "event": "auto_restart_shutdown_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:45.468Z", "event": "healable_agent_shutdown", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:45.468Z", "event": "auto_restart_waiting", "agent_id": "distance-tracker", "wait_seconds": 10}
+{"timestamp": "2026-07-09T22:04:55.469Z", "event": "auto_restart_startup_start", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:55.470Z", "event": "healable_agent_startup", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:04:55.477Z", "event": "auto_restart_completed_successfully", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:05:10.484Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:05:25.493Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:05:40.270Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:05:40.499Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:05:55.507Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:06:10.516Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:06:25.528Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:06:40.337Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:06:40.593Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:23:30.965Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:41:23.875Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:41:38.886Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:41:53.670Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T22:41:53.950Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T22:59:51.831Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:00:06.896Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:16:47.618Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:34:28.173Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-09T23:34:28.484Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:51:49.298Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:52:18.511Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-09T23:52:33.574Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:07:40.897Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T00:07:41.228Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:24:30.779Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:24:45.842Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:42:50.842Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:58:06.645Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T00:58:06.994Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T00:58:22.004Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T01:08:26.738Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T01:08:41.747Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T01:25:25.512Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T01:25:25.712Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T01:42:21.055Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T01:42:36.119Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:00:08.339Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:09:31.754Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T02:09:31.978Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:09:47.042Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:25:51.639Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:34:31.177Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:34:45.993Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T02:34:46.239Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T02:51:32.668Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:02:37.778Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:02:52.787Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:03:07.515Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:03:07.795Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:03:22.819Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:03:37.828Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:03:52.924Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:04:07.530Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:04:07.932Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:04:22.940Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:04:37.945Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:04:52.952Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:05:07.540Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:05:07.959Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:05:22.965Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:05:37.972Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:05:52.979Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:06:07.551Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:06:07.986Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:06:22.993Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:06:38.001Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:06:53.009Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:07:07.562Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:07:08.017Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:07:23.024Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:07:38.031Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:07:53.039Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:08:07.573Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:08:08.047Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:08:23.055Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:08:38.065Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:08:53.071Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:09:07.585Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:09:08.079Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:09:23.086Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:09:38.093Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:09:53.100Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:10:07.595Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 5.0, "total": 8.0}
+{"timestamp": "2026-07-10T03:10:08.107Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:10:23.114Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:10:38.122Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:10:53.131Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:11:07.606Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:11:08.140Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:11:23.148Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:11:38.155Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:11:53.168Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:12:07.613Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:12:08.174Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:12:23.183Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:12:38.192Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:12:53.200Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:13:07.625Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:13:08.209Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:13:23.217Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:13:38.224Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:13:53.231Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:14:07.637Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:14:08.240Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:14:23.247Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:14:38.258Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:14:53.269Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:15:07.646Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:15:08.275Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:15:23.283Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:15:38.292Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:15:53.300Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:16:07.657Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:16:08.307Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:16:23.315Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:16:38.320Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:16:53.330Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:17:07.669Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:17:08.340Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:17:23.345Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:17:38.354Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:17:53.362Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:18:07.681Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:18:08.370Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:18:23.378Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:18:38.388Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:18:53.397Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:19:07.692Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:19:08.404Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:19:23.413Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:19:38.422Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:19:53.432Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:20:07.702Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:20:08.440Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:20:23.448Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:20:38.455Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:20:53.463Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:21:07.715Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:21:08.475Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:21:23.483Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:21:38.496Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:21:53.504Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:22:07.726Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:22:08.510Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:22:23.517Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:22:38.526Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:22:53.534Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
+{"timestamp": "2026-07-10T03:23:07.740Z", "event": "totals_reported", "agent_id": "distance-tracker", "cycling": 3.0, "walking": 7.0, "total": 10.0}
+{"timestamp": "2026-07-10T03:23:08.542Z", "event": "queue_healer_no_queue", "agent_id": "distance-tracker"}
