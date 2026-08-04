@@ -2,6 +2,7 @@
 
 Provides endpoints for agent registration and telemetry ingestion. Stores data in-memory.
 """
+import hashlib
 import hmac
 import html
 import logging
@@ -293,13 +294,15 @@ def login():
         password = request.form.get("password", "")
         valid_user = bool(DASHBOARD_USERNAME) and hmac.compare_digest(username, DASHBOARD_USERNAME)
         valid_pass = bool(DASHBOARD_PASSWORD_HASH) and check_password_hash(DASHBOARD_PASSWORD_HASH, password)
-        # TEMPORARY diagnostic logging - lengths/booleans only, never the actual secret
-        # values - to debug a login mismatch without exposing credentials in logs.
+        # TEMPORARY diagnostic logging - SHA256 fingerprints (first 16 hex chars) only,
+        # never the actual secret values - to debug a login mismatch without exposing
+        # credentials in logs. Fingerprints can be safely compared against a local
+        # computation of the same fingerprint to check for an exact byte-for-byte match.
         logger.warning(
-            "LOGIN DEBUG: submitted_user_len=%d configured_user_len=%d valid_user=%s "
-            "submitted_pass_len=%d configured_hash_len=%d configured_hash_prefix=%r valid_pass=%s",
-            len(username), len(DASHBOARD_USERNAME), valid_user,
-            len(password), len(DASHBOARD_PASSWORD_HASH), DASHBOARD_PASSWORD_HASH[:12], valid_pass,
+            "LOGIN DEBUG: configured_user_fingerprint=%s configured_hash_fingerprint=%s valid_user=%s valid_pass=%s",
+            hashlib.sha256(DASHBOARD_USERNAME.encode()).hexdigest()[:16],
+            hashlib.sha256(DASHBOARD_PASSWORD_HASH.encode()).hexdigest()[:16],
+            valid_user, valid_pass,
         )
         if valid_user and valid_pass:
             session.clear()
