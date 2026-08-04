@@ -293,6 +293,14 @@ def login():
         password = request.form.get("password", "")
         valid_user = bool(DASHBOARD_USERNAME) and hmac.compare_digest(username, DASHBOARD_USERNAME)
         valid_pass = bool(DASHBOARD_PASSWORD_HASH) and check_password_hash(DASHBOARD_PASSWORD_HASH, password)
+        # TEMPORARY diagnostic logging - lengths/booleans only, never the actual secret
+        # values - to debug a login mismatch without exposing credentials in logs.
+        logger.warning(
+            "LOGIN DEBUG: submitted_user_len=%d configured_user_len=%d valid_user=%s "
+            "submitted_pass_len=%d configured_hash_len=%d configured_hash_prefix=%r valid_pass=%s",
+            len(username), len(DASHBOARD_USERNAME), valid_user,
+            len(password), len(DASHBOARD_PASSWORD_HASH), DASHBOARD_PASSWORD_HASH[:12], valid_pass,
+        )
         if valid_user and valid_pass:
             session.clear()
             session["logged_in"] = True
