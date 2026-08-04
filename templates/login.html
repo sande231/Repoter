@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Synapse Dashboard - Log in</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --surface-1:      #fcfcfb;
+        --page-plane:     #f9f9f7;
+        --text-primary:   #0b0b0b;
+        --text-secondary: #52514e;
+        --border:         rgba(11,11,11,0.10);
+        --accent-blue:    #2a78d6;
+        --accent-violet:  #4a3aa7;
+        --status-critical: #d03b3b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --surface-1:      #1a1a19;
+          --page-plane:     #0d0d0d;
+          --text-primary:   #ffffff;
+          --text-secondary: #c3c2b7;
+          --border:         rgba(255,255,255,0.10);
+          --accent-blue:    #3987e5;
+          --accent-violet:  #9085e9;
+        }
+      }
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        height: 100%;
+        background: var(--page-plane);
+        color: var(--text-primary);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .login-card {
+        width: 100%;
+        max-width: 360px;
+        margin: 24px;
+        padding: 32px;
+        border-radius: 16px;
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+      }
+      .login-card h1 {
+        margin: 0 0 6px;
+        font-size: 22px;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .login-card p.sub { margin: 0 0 24px; color: var(--text-secondary); font-size: 14px; }
+      label { display: block; font-size: 13px; color: var(--text-secondary); margin-bottom: 6px; }
+      input[type="text"], input[type="password"] {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 16px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--page-plane);
+        color: var(--text-primary);
+        font-size: 14px;
+      }
+      button {
+        width: 100%;
+        padding: 11px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      button:hover { filter: brightness(1.1); }
+      .error {
+        margin-bottom: 16px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: color-mix(in srgb, var(--status-critical) 12%, transparent);
+        color: var(--status-critical);
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-card">
+      <h1>📡 Synapse Dashboard</h1>
+      <p class="sub">Sign in to view and manage your agent fleet.</p>
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+      <form method="post">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" autocomplete="username" required autofocus>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" autocomplete="current-password" required>
+        <button type="submit">Log in</button>
+      </form>
+    </div>
+  </body>
+</html>

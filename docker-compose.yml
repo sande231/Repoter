@@ -1,13 +1,47 @@
 services:
+  # Reverse proxy: the ONLY service with ports published to the internet. Terminates
+  # HTTPS (auto-issues + renews a Let's Encrypt cert for $DOMAIN) and forwards to the
+  # ingestion container over the private compose network. See DEPLOY.md.
+  caddy:
+    image: caddy:2-alpine
+    container_name: synapse_caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - DOMAIN=${DOMAIN:?Set DOMAIN in .env to your real domain, e.g. dashboard.example.com}
+      - ACME_EMAIL=${ACME_EMAIL:?Set ACME_EMAIL in .env - Let's Encrypt uses it for renewal/expiry notices}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      ingestion:
+        condition: service_healthy
+
   ingestion:
     build: .
     container_name: synapse_ingestion
-    ports:
-      - "5000:5000"
+    restart: unless-stopped
+    # No "ports:" here on purpose - only reachable from other containers on this compose
+    # network (i.e. from caddy), never directly from the internet or the host's own network.
+    expose:
+      - "5000"
     environment:
       - INGESTION_API_KEY=${INGESTION_API_KEY:-change-me}
       - INGESTION_API_KEY_HEADER=${INGESTION_API_KEY_HEADER:-X-API-KEY}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - TARGET_GITHUB_USERNAME=${TARGET_GITHUB_USERNAME:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      # Must bind 0.0.0.0 *inside* the container so Caddy (a separate container) can reach
+      # it - this is safe here specifically because the "expose" above (not "ports") means
+      # Docker never forwards this port to the host or the public internet either way.
+      - INGESTION_BIND_HOST=0.0.0.0
+      - DASHBOARD_USERNAME=${DASHBOARD_USERNAME:?Set DASHBOARD_USERNAME in .env before deploying publicly}
+      - DASHBOARD_PASSWORD_HASH=${DASHBOARD_PASSWORD_HASH:?Set DASHBOARD_PASSWORD_HASH in .env before deploying publicly}
+      - FLASK_SECRET_KEY=${FLASK_SECRET_KEY:?Set FLASK_SECRET_KEY in .env before deploying publicly}
+      - FORCE_HTTPS_COOKIES=1
     volumes:
       - ./email_queue.db:/app/email_queue.db
     healthcheck:
@@ -20,6 +54,7 @@ services:
   main_agent:
     build: .
     container_name: synapse_main_agent
+    restart: unless-stopped
     environment:
       - INGESTION_URL=http://ingestion:5000
       - INGESTION_API_KEY=${INGESTION_API_KEY:-change-me}
@@ -38,6 +73,7 @@ services:
   email_worker:
     build: .
     container_name: synapse_email_worker
+    restart: unless-stopped
     command: ["python", "-c", "from email_queue import worker_loop; worker_loop()"]
     environment:
       - SMTP_HOST=${SMTP_HOST:-smtp.example.com}
@@ -54,6 +90,7 @@ services:
   canvas_oauth:
     build: .
     container_name: synapse_canvas_oauth
+    restart: unless-stopped
     command: ["python", "canvas_oauth.py", "serve"]
     ports:
       - "8080:8080"
@@ -73,6 +110,7 @@ services:
   canvas_tutor_adapter:
     build: .
     container_name: synapse_canvas_tutor_adapter
+    restart: unless-stopped
     command: ["python", "canvas_tutor_adapter.py"]
     environment:
       - INGESTION_URL=http://ingestion:5000
@@ -95,3 +133,7 @@ services:
     depends_on:
       ingestion:
         condition: service_healthy
+
+volumes:
+  caddy_data:
+  caddy_config:

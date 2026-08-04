@@ -10,11 +10,14 @@ Usage:
 import os
 import json
 import time
+import uuid
 import requests
 import anthropic
 from distance_tracker import DistanceTracker
 
-INGESTION_URL = "http://localhost:5000"
+INGESTION_URL = os.environ.get("INGESTION_URL", "http://localhost:5000")
+INGESTION_API_KEY = os.environ.get("INGESTION_API_KEY", "")
+INGESTION_API_KEY_HEADER = os.environ.get("INGESTION_API_KEY_HEADER", "X-API-KEY")
 MODEL = "claude-sonnet-4-6"
 
 # ---------------------------------------------------------------
@@ -118,7 +121,30 @@ TOOLS = [
             "required": ["agent_id"],
         },
     },
+    {
+        "name": "get_github_report",
+        "description": "Get a live summary of the user's GitHub repositories and GitHub Actions workflow health - successes, failures, and repos needing attention. Use for requests like 'give me a report on my repos/reporter agent', 'how's my GitHub CI doing', 'any failing workflows'.",
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "stage_email",
+        "description": "Stage a fully-drafted email for the user to review. This does NOT send the email - it only prepares it so the user can approve or discard it themselves via a button in the chat. Call this once you have composed the complete final subject and body the user wants to send, with a real recipient address.",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "recipient": {"type": "string", "description": "Recipient email address."},
+                "subject": {"type": "string"},
+                "body": {"type": "string", "description": "Full email body text."},
+            },
+            "required": ["recipient", "subject", "body"],
+        },
+    },
 ]
+
+# Per-chat pending email drafts awaiting explicit user approval: {chat_id: {token, recipient, subject, body}}
+# NOTE: sending only ever happens when the human taps the Send button wired to this dict in
+# telegram_bot.py - no tool here is capable of actually dispatching an email.
+PENDING_EMAILS = {}
 
 # ---------------------------------------------------------------
 # 2. TOOL EXECUTION - your existing code does the real work
@@ -127,8 +153,9 @@ TOOLS = [
 tracker = DistanceTracker()
 
 
-def execute_tool(name: str, tool_input: dict) -> str:
+def execute_tool(name: str, tool_input: dict, chat_id=None) -> str:
     """Run the requested tool and return a JSON result string."""
+    chat_id = chat_id if chat_id is not None else "cli"
     try:
         if name == "log_distance":
             totals = tracker.log_distance(tool_input["distance_km"], tool_input["mode"])
@@ -138,7 +165,11 @@ def execute_tool(name: str, tool_input: dict) -> str:
             return json.dumps(tracker.get_today_totals())
 
         if name == "get_fleet_status":
-            resp = requests.get(f"{INGESTION_URL}/agents", timeout=3)
+            resp = requests.get(
+                f"{INGESTION_URL}/agents",
+                headers={INGESTION_API_KEY_HEADER: INGESTION_API_KEY},
+                timeout=3,
+            )
             agents = resp.json()
             now = int(time.time())
             out = []
@@ -156,6 +187,7 @@ def execute_tool(name: str, tool_input: dict) -> str:
             resp = requests.get(
                 f"{INGESTION_URL}/metrics/{tool_input['agent_id']}",
                 params={"since": since},
+                headers={INGESTION_API_KEY_HEADER: INGESTION_API_KEY},
                 timeout=3,
             )
             data = resp.json()
@@ -188,6 +220,32 @@ def execute_tool(name: str, tool_input: dict) -> str:
             import agent_factory
             return json.dumps(agent_factory.get_today(tool_input["agent_id"]))
 
+        if name == "get_github_report":
+            import central_reporter
+            username = os.environ.get("TARGET_GITHUB_USERNAME") or central_reporter.GITHUB_USER
+            if not username:
+                return json.dumps({"error": "TARGET_GITHUB_USERNAME is not configured; cannot fetch GitHub report."})
+            repos_report = central_reporter.gather_report(username)
+            summary = central_reporter.summarize_report(repos_report)
+            needs_attention = [
+                {"name": r["name"], "reason": r["health"]["reason"], "url": r.get("html_url")}
+                for r in repos_report if r["health"]["needs_attention"]
+            ]
+            return json.dumps({"summary": summary, "needs_attention": needs_attention})
+
+        if name == "stage_email":
+            token = uuid.uuid4().hex[:8]
+            PENDING_EMAILS[chat_id] = {
+                "token": token,
+                "recipient": tool_input["recipient"],
+                "subject": tool_input["subject"],
+                "body": tool_input["body"],
+            }
+            return json.dumps({
+                "staged": True,
+                "note": "Draft staged for the user's review. It will NOT be sent unless the user taps Send on the button shown in the chat.",
+            })
+
         return json.dumps({"error": f"Unknown tool: {name}"})
 
     except requests.exceptions.ConnectionError:
@@ -206,8 +264,16 @@ You can:
 - Log distances the user traveled (walking/driving/cycling/running/transit)
 - Report today's travel totals
 - Check the health/status of their monitoring agents
+- Report on GitHub repository and CI/workflow health (successes, failures, repos needing attention)
+- Draft emails on request (e.g. "write an email to my professor asking for an extension")
 - CREATE NEW TRACKER AGENTS on request (study hours, water intake, pushups, expenses, anything measurable)
 - Log entries into any created agent and report its totals
+
+When the user asks you to write an email:
+1. Compose the full subject and body yourself, in your normal reply, so they can read it first.
+2. Only call stage_email once you have a complete draft with a real recipient address. You have
+   no way to actually send email yourself - stage_email only prepares it for the user to approve
+   or discard via a button shown in their chat. Never imply the email has been sent.
 
 When the user asks you to make/build an agent:
 1. Pick a sensible agent_id, unit, and categories (confirm with the user if ambiguous)

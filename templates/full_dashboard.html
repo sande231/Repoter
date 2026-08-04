@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="refresh" content="30" />
+    <title>Synapse Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <style>
+      /* Theme tokens live at :root so EVERY element (including <body> itself) can see them.
+         (Scoping these to a nested wrapper div was the earlier bug: body's color/background
+         referenced variables that only existed on a descendant, so they silently failed and
+         fell back to browser-default black text — invisible on dark card backgrounds.) */
+      :root {
+        color-scheme: light dark;
+        --surface-1:      #fcfcfb;
+        --page-plane:     #f9f9f7;
+        --text-primary:   #0b0b0b;
+        --text-secondary: #52514e;
+        --text-muted:     #898781;
+        --gridline:       #e1e0d9;
+        --border:         rgba(11,11,11,0.10);
+        --status-good:     #0ca30c;
+        --status-warning:  #fab219;
+        --status-serious:  #ec835a;
+        --status-critical: #d03b3b;
+        --delta-good-text: #006300;
+        --accent-blue:   #2a78d6;
+        --accent-violet: #4a3aa7;
+        --accent-aqua:   #1baf7a;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --surface-1:      #1a1a19;
+          --page-plane:     #0d0d0d;
+          --text-primary:   #ffffff;
+          --text-secondary: #c3c2b7;
+          --text-muted:     #898781;
+          --gridline:       #2c2c2a;
+          --border:         rgba(255,255,255,0.10);
+          --delta-good-text: #0ca30c;
+          --accent-blue:   #3987e5;
+          --accent-violet: #9085e9;
+          --accent-aqua:   #199e70;
+        }
+      }
+
+      * { box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        background: var(--page-plane);
+        color: var(--text-primary);
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      .wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+
+      header.top {
+        margin: 0 0 28px;
+        padding: 32px 28px;
+        border-radius: 0 0 20px 20px;
+        background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+        color: #ffffff;
+      }
+      header.top h1 {
+        font-size: 1.8em;
+        margin: 0 0 6px;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+      }
+      header.top p { margin: 0; color: rgba(255,255,255,0.88); font-size: 0.92em; text-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+
+      section { margin-bottom: 36px; }
+      section > h2 {
+        font-size: 1.05em;
+        font-weight: 600;
+        margin: 0 0 14px;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* Stat tiles / KPI row */
+      .kpi-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 14px;
+      }
+      .stat-tile {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-top: 4px solid var(--tile-accent, var(--accent-blue));
+        border-radius: 12px;
+        padding: 16px 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      }
+      .stat-tile .label { color: var(--text-secondary); font-size: 0.85em; margin-bottom: 6px; }
+      .stat-tile .value { font-size: 2.1em; font-weight: 700; line-height: 1; color: var(--text-primary); }
+      .stat-tile .value.good { color: var(--delta-good-text); }
+      .stat-tile .value.warning { color: #9a6700; }
+      .stat-tile .value.critical { color: var(--status-critical); }
+      .stat-tile .sub { color: var(--text-muted); font-size: 0.8em; margin-top: 6px; }
+      .stat-tile.accent-good { --tile-accent: var(--status-good); }
+      .stat-tile.accent-warning { --tile-accent: var(--status-warning); }
+      .stat-tile.accent-critical { --tile-accent: var(--status-critical); }
+      .stat-tile.accent-aqua { --tile-accent: var(--accent-aqua); }
+
+      /* Cards */
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 14px;
+      }
+      .card {
+        background: var(--card-bg, var(--surface-1));
+        border: 1px solid var(--border);
+        border-left: 4px solid var(--card-accent, var(--gridline));
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      }
+      .card.status-good { --card-accent: var(--status-good); --card-bg: color-mix(in srgb, var(--status-good) 6%, var(--surface-1)); }
+      .card.status-warning, .card.status-in_progress { --card-accent: var(--status-warning); --card-bg: color-mix(in srgb, var(--status-warning) 8%, var(--surface-1)); }
+      .card.status-critical, .card.status-attention { --card-accent: var(--status-critical); --card-bg: color-mix(in srgb, var(--status-critical) 6%, var(--surface-1)); }
+      .card.status-no_workflow, .card.status-neutral { --card-accent: var(--text-muted); }
+
+      .card h3 { margin: 0 0 6px; font-size: 1em; color: var(--text-primary); }
+      .card h3 a { color: inherit; text-decoration: none; }
+      .card h3 a:hover { text-decoration: underline; }
+      .card .desc { color: var(--text-secondary); font-size: 0.85em; margin-bottom: 10px; min-height: 1.2em; }
+      .card .meta { color: var(--text-muted); font-size: 0.8em; }
+
+      /* Status badge: filled chip, icon dot + label, never color alone */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.78em;
+        font-weight: 700;
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+      .badge::before { content: ""; width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+      .badge.good { color: var(--delta-good-text); background: color-mix(in srgb, var(--status-good) 18%, var(--surface-1)); }
+      .badge.good::before { background: var(--status-good); }
+      .badge.warning, .badge.in_progress { color: #9a6700; background: color-mix(in srgb, var(--status-warning) 22%, var(--surface-1)); }
+      .badge.warning::before, .badge.in_progress::before { background: var(--status-warning); }
+      .badge.attention, .badge.critical { color: var(--status-critical); background: color-mix(in srgb, var(--status-critical) 16%, var(--surface-1)); }
+      .badge.attention::before, .badge.critical::before { background: var(--status-critical); }
+      .badge.no_workflow, .badge.neutral { color: var(--text-muted); background: color-mix(in srgb, var(--text-muted) 14%, var(--surface-1)); }
+      .badge.no_workflow::before, .badge.neutral::before { background: var(--text-muted); }
+
+      /* Meter */
+      .meter-row { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+      .meter-track {
+        flex: 1;
+        height: 6px;
+        border-radius: 999px;
+        background: var(--gridline);
+        overflow: hidden;
+      }
+      .meter-fill { height: 100%; border-radius: 999px; }
+      .meter-fill.good { background: var(--status-good); }
+      .meter-fill.warning { background: var(--status-warning); }
+      .meter-fill.critical { background: var(--status-critical); }
+      .meter-label { font-size: 0.78em; color: var(--text-muted); white-space: nowrap; }
+
+      .log-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--gridline);
+      }
+      .log-form input, .log-form select {
+        flex: 1 1 90px;
+        min-width: 0;
+        padding: 6px 8px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: var(--surface-1);
+        color: var(--text-primary);
+        font-size: 0.85em;
+      }
+      .log-form button {
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: none;
+        background: var(--accent-blue);
+        color: #ffffff;
+        font-size: 0.85em;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .log-form button:hover { filter: brightness(1.1); }
+
+      .draft-form { display: flex; gap: 8px; align-items: flex-start; }
+      .draft-form textarea {
+        flex: 1;
+        padding: 10px 12px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface-1);
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.9em;
+        resize: vertical;
+      }
+      .draft-form button {
+        padding: 10px 18px;
+        border-radius: 8px;
+        border: none;
+        background: var(--accent-blue);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.9em;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .draft-form button:hover { filter: brightness(1.1); }
+
+      .draft-review {
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid var(--gridline);
+      }
+      .draft-review h3 { margin: 0 0 4px; font-size: 0.95em; color: var(--text-primary); }
+      .code-preview {
+        margin-top: 10px;
+        max-height: 420px;
+        overflow: auto;
+        background: var(--page-plane);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 12px 0;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.8em;
+        white-space: pre;
+        color: var(--text-primary);
+      }
+      .code-preview .code-line { display: block; padding: 1px 14px; }
+      .code-preview .line-no {
+        display: inline-block;
+        width: 34px;
+        margin-right: 10px;
+        color: var(--text-muted);
+        user-select: none;
+      }
+      .code-preview .risk-line {
+        background: color-mix(in srgb, var(--status-warning) 16%, transparent);
+        border-left: 3px solid var(--status-warning);
+        padding-left: 11px;
+      }
+      .draft-actions { display: flex; gap: 10px; margin-top: 12px; }
+      .draft-actions button {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        font-weight: 600;
+        font-size: 0.85em;
+        cursor: pointer;
+      }
+      .draft-actions .approve { background: var(--status-good); color: #ffffff; }
+      .draft-actions .discard { background: var(--status-critical); color: #ffffff; }
+      .draft-actions button:hover { filter: brightness(1.1); }
+
+      .approved-list { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gridline); }
+      .approved-list h3 { margin: 0 0 10px; font-size: 0.95em; }
+      .approved-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid var(--gridline);
+        font-size: 0.9em;
+      }
+      .approved-row:last-child { border-bottom: none; }
+      .approved-row button {
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: none;
+        background: var(--status-good);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.82em;
+        cursor: pointer;
+      }
+      .approved-row button:hover { filter: brightness(1.1); }
+      .approved-row button.revoke { background: var(--status-critical); }
+
+      .trust-checkbox {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 12px;
+        font-size: 0.85em;
+        color: var(--text-secondary);
+      }
+
+      .alert {
+        background: color-mix(in srgb, var(--status-critical) 10%, var(--surface-1));
+        border: 1px solid var(--status-critical);
+        border-radius: 10px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+      }
+      .alert h3 { margin: 4px 0 8px; font-size: 0.95em; color: var(--status-critical); }
+      .alert ul { margin: 0; padding-left: 18px; font-size: 0.88em; color: var(--text-primary); }
+
+      .notice {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 16px;
+        color: var(--text-secondary);
+        font-size: 0.9em;
+      }
+
+      .chart-card {
+        background: var(--surface-1);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      }
+      .chart-card canvas { width: 100% !important; }
+      .legend-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        margin-top: 12px;
+        font-size: 0.82em;
+        color: var(--text-secondary);
+      }
+      .legend-row span.swatch {
+        display: inline-block;
+        width: 8px; height: 8px;
+        border-radius: 2px;
+        margin-right: 5px;
+      }
+
+      details.table-view { margin-top: 14px; }
+      details.table-view summary {
+        cursor: pointer;
+        color: var(--text-secondary);
+        font-size: 0.85em;
+      }
+      table { border-collapse: collapse; width: 100%; margin-top: 10px; font-size: 0.85em; }
+      th, td { border-bottom: 1px solid var(--gridline); padding: 8px 10px; text-align: left; color: var(--text-primary); }
+      th { color: var(--text-muted); font-weight: 600; font-size: 0.85em; }
+
+      footer.bottom { color: var(--text-muted); font-size: 0.8em; margin-top: 24px; }
+
+      @media (max-width: 480px) {
+        .kpi-row { grid-template-columns: repeat(2, 1fr); }
+        header.top { border-radius: 0 0 14px 14px; padding: 24px 20px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap" style="padding-bottom:0; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;">
+        <div>
+          <h1>📡 Synapse Dashboard</h1>
+          <p>Generated {{ generated_at }} &middot; agent data refreshes every 30s &middot; GitHub data every {{ github.refresh_seconds }}s</p>
+        </div>
+        <form method="post" action="{{ url_for('logout') }}" style="margin-top:6px;">
+          <button type="submit" class="revoke">Log out</button>
+        </form>
+      </div>
+    </header>
+    <div class="wrap">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notice" style="margin-bottom:20px;">
+          {% for m in messages %}{{ m }}<br/>{% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        <section>
+          <div class="kpi-row">
+            <div class="stat-tile {% if github.summary and github.summary.health_score >= 80 %}accent-good{% elif github.summary and github.summary.health_score >= 50 %}accent-warning{% elif github.summary %}accent-critical{% else %}accent-aqua{% endif %}">
+              <div class="label">GitHub health score</div>
+              <div class="value {% if github.summary and github.summary.health_score >= 80 %}good{% elif github.summary and github.summary.health_score >= 50 %}warning{% elif github.summary %}critical{% endif %}">
+                {{ github.summary.health_score if github.summary else '—' }}{% if github.summary %}%{% endif %}
+              </div>
+              <div class="sub">{{ github.summary.with_workflow if github.summary else 0 }} repos with CI</div>
+            </div>
+            <div class="stat-tile accent-aqua">
+              <div class="label">Total repositories</div>
+              <div class="value">{{ github.summary.total_repos if github.summary else '—' }}</div>
+              <div class="sub">tracked on GitHub</div>
+            </div>
+            <div class="stat-tile {% if github.summary and github.summary.needs_attention > 0 %}accent-critical{% else %}accent-good{% endif %}">
+              <div class="label">Needs attention</div>
+              <div class="value {% if github.summary and github.summary.needs_attention > 0 %}critical{% else %}good{% endif %}">
+                {{ github.summary.needs_attention if github.summary else '—' }}
+              </div>
+              <div class="sub">failing or unknown status</div>
+            </div>
+            <div class="stat-tile {% if agents_total and agents_online == agents_total %}accent-good{% elif agents_online == 0 %}accent-critical{% else %}accent-warning{% endif %}">
+              <div class="label">Agents online</div>
+              <div class="value {% if agents_total and agents_online == agents_total %}good{% elif agents_online == 0 %}critical{% else %}warning{% endif %}">
+                {{ agents_online }}/{{ agents_total }}
+              </div>
+              <div class="sub">of registered fleet</div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>📊 Repository Health</h2>
+          <div class="chart-card">
+            {% if github.error %}
+            <div class="notice">GitHub data unavailable: {{ github.error }}</div>
+            {% else %}
+            <canvas id="repoHealthChart" height="70"></canvas>
+            <div class="legend-row" id="repoHealthLegend"></div>
+            {% endif %}
+          </div>
+        </section>
+
+        <section>
+          <h2>📈 Workflow Success / Failure Trend</h2>
+          <div class="chart-card">
+            {% if github_history|length < 2 %}
+            <div class="notice">Collecting historical data — this chart fills in as the dashboard's background refresh runs (every {{ github.refresh_seconds }}s). Check back shortly.</div>
+            {% else %}
+            <canvas id="trendChart" height="80"></canvas>
+            {% endif %}
+          </div>
+        </section>
+
+        <section>
+          <h2>📁 Repositories</h2>
+          <div class="card-grid">
+            {% for r in github.repos %}
+            <div class="card status-{{ r.health.state }}">
+              <h3>{% if r.html_url %}<a href="{{ r.html_url }}" target="_blank">{{ r.name }}</a>{% else %}{{ r.name }}{% endif %}</h3>
+              <div class="desc">{{ r.description or 'No description' }}</div>
+              <span class="badge {{ r.health.state }}">{{ r.health.label }}</span>
+              <div class="meta" style="margin-top:8px;">
+                ★ {{ r.stars }} &middot; ⑂ {{ r.forks }}
+                {% if r.status %}<br/>Last run: {{ r.status.updated_at or '-' }}{% endif %}
+              </div>
+            </div>
+            {% else %}
+            <div class="notice">No repository data yet.</div>
+            {% endfor %}
+          </div>
+
+          {% if github.repos %}
+          <details class="table-view">
+            <summary>View as table</summary>
+            <table>
+              <thead>
+                <tr><th>Repository</th><th>Health</th><th>Status</th><th>Conclusion</th><th>Last run</th></tr>
+              </thead>
+              <tbody>
+              {% for r in github.repos %}
+                <tr>
+                  <td>{{ r.name }}</td>
+                  <td>{{ r.health.label }}</td>
+                  <td>{{ r.status.status if r.status else 'n/a' }}</td>
+                  <td>{{ r.status.conclusion if r.status else 'n/a' }}</td>
+                  <td>{{ r.status.updated_at if r.status else '-' }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </details>
+          {% endif %}
+        </section>
+
+        <section>
+          <h2>🤖 Agent Fleet</h2>
+
+          {% if stale_agents %}
+          <div class="alert">
+            <h3>Stale agents</h3>
+            <ul>
+              {% for s in stale_agents %}
+              <li>{{ s.agent_id }} — last seen {{ s.age_seconds }}s ago</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          <div class="card-grid">
+            {% for a in agents %}
+            <div class="card status-{{ a.status }}">
+              <h3>{{ a.agent_id }}</h3>
+              <span class="badge {{ a.status }}">
+                {% if a.status == 'good' %}online{% elif a.status == 'warning' %}slow to report{% else %}stale{% endif %}
+              </span>
+              {% if a.problems %}
+              <span class="badge critical">{{ a.problems|length }} problem(s)</span>
+              {% endif %}
+              <div class="meter-row">
+                <div class="meter-track"><div class="meter-fill {{ a.status }}" style="width: {{ a.freshness_pct }}%;"></div></div>
+                <div class="meter-label">{{ a.last_seen_ago }}</div>
+              </div>
+              {% if a.stats %}
+              <div class="meta" style="margin-top:10px;">
+                {% for k, v in a.stats.items() %}
+                  {{ k }}: avg {{ '%.2f'|format(v.avg) if v.avg is not none else '-' }}<br/>
+                {% endfor %}
+              </div>
+              {% endif %}
+
+              {% if a.loggable %}
+              <form method="post" action="{{ url_for('log_task', agent_id=a.agent_id) }}" class="log-form">
+                <input type="number" step="any" name="amount" placeholder="Amount{% if a.unit %} ({{ a.unit }}){% endif %}" required>
+                {% if a.categories %}
+                <select name="category" required>
+                  <option value="" disabled selected>Category</option>
+                  {% for c in a.categories %}<option value="{{ c }}">{{ c }}</option>{% endfor %}
+                </select>
+                {% else %}
+                <input type="text" name="category" placeholder="Category" required>
+                {% endif %}
+                <button type="submit">Log</button>
+              </form>
+              {% endif %}
+            </div>
+            {% else %}
+            <div class="notice">No agents registered yet.</div>
+            {% endfor %}
+          </div>
+        </section>
+
+        <section>
+          <h2>🧪 Create New Agent</h2>
+          <div class="chart-card">
+            <p class="meta" style="margin-bottom:10px;">
+              Describe the agent you want (e.g. "a job finder agent that searches for internships").
+              Claude drafts the code below - nothing runs until you review and approve it yourself.
+            </p>
+            <form method="post" action="{{ url_for('draft_agent') }}" class="draft-form">
+              <textarea name="prompt" rows="2" placeholder="Describe the agent you want to create..." required></textarea>
+              <button type="submit">Draft Agent</button>
+            </form>
+
+            {% if pending_draft %}
+            <div class="draft-review">
+              <h3>Draft: {{ pending_draft.agent_id }} <span class="meta">({{ pending_draft.filename }})</span></h3>
+              <p class="meta">Prompt: "{{ pending_draft.prompt }}" &middot; drafted {{ pending_draft.created_at }}</p>
+
+              {% if pending_draft.refinements %}
+              <div class="notice" style="margin:10px 0;">
+                <strong>Refinements applied:</strong>
+                <ul style="margin:6px 0 0; padding-left:18px;">
+                  {% for r in pending_draft.refinements %}<li>{{ r }}</li>{% endfor %}
+                </ul>
+              </div>
+              {% endif %}
+
+              {% if pending_draft.risk_flags %}
+              <div class="alert" style="margin-top:10px;">
+                <h3>⚠️ {{ pending_draft.risk_flags|length }} thing(s) to check before approving</h3>
+                <ul>
+                  {% for f in pending_draft.risk_flags %}
+                  <li>Line {{ f.line }}: {{ f.warning }} <code class="meta">{{ f.snippet }}</code></li>
+                  {% endfor %}
+                </ul>
+              </div>
+              {% else %}
+              <div class="notice" style="margin-top:10px;">No risky patterns (subprocess/eval/file-writes/network calls) flagged by the static scan - still worth a read.</div>
+              {% endif %}
+
+              <pre class="code-preview">{{ pending_draft.code_preview_html | safe }}</pre>
+
+              <form method="post" action="{{ url_for('refine_draft') }}" class="draft-form" style="margin-top:12px;">
+                <input type="hidden" name="token" value="{{ pending_draft.token }}">
+                <textarea name="instruction" rows="2" placeholder="Ask for a change, e.g. 'check every 5 minutes instead' or 'use a different job site'..." required></textarea>
+                <button type="submit">Refine</button>
+              </form>
+
+              {% if pending_draft.agent_id in trusted_agent_ids %}
+              <div class="notice" style="margin-top:10px;">
+                🔓 <strong>{{ pending_draft.agent_id }}</strong> is a trusted agent id — approving this will save <em>and start it immediately</em>, no separate click. <a href="#trusted-list">Revoke trust below</a> if you don't want that.
+              </div>
+              {% endif %}
+
+              <form method="post" action="{{ url_for('approve_draft') }}">
+                <input type="hidden" name="token" value="{{ pending_draft.token }}">
+                {% if pending_draft.agent_id not in trusted_agent_ids %}
+                <label class="trust-checkbox">
+                  <input type="checkbox" name="trust_future" value="1">
+                  Trust future revisions of <strong>{{ pending_draft.agent_id }}</strong> — auto-start on approval from now on
+                </label>
+                {% endif %}
+                <div class="draft-actions">
+                  <button type="submit" class="approve">
+                    {% if pending_draft.agent_id in trusted_agent_ids %}✅ Approve &amp; Start{% else %}✅ Approve &amp; Save{% endif %}
+                  </button>
+                  <button type="submit" form="discard-form-{{ pending_draft.token }}" class="discard">❌ Discard</button>
+                </div>
+              </form>
+              <form id="discard-form-{{ pending_draft.token }}" method="post" action="{{ url_for('discard_draft') }}" style="display:none;">
+                <input type="hidden" name="token" value="{{ pending_draft.token }}">
+              </form>
+            </div>
+            {% endif %}
+
+            {% if approved_agent_files %}
+            <div class="approved-list">
+              <h3>Approved, not yet running</h3>
+              {% for aid, fname in approved_agent_files.items() %}
+              <div class="approved-row">
+                <span>{{ aid }} <span class="meta">({{ fname }})</span></span>
+                <form method="post" action="{{ url_for('start_custom_agent', agent_id=aid) }}">
+                  <button type="submit">▶ Start</button>
+                </form>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if trusted_agent_ids %}
+            <div class="approved-list" id="trusted-list">
+              <h3>🔓 Trusted agent types <span class="meta">(auto-start on approval)</span></h3>
+              {% for aid in trusted_agent_ids %}
+              <div class="approved-row">
+                <span>{{ aid }}</span>
+                <form method="post" action="{{ url_for('untrust_agent', agent_id=aid) }}">
+                  <button type="submit" class="revoke">Revoke trust</button>
+                </form>
+              </div>
+              {% endfor %}
+            </div>
+            {% endif %}
+          </div>
+        </section>
+
+        <footer class="bottom">Synapse Dashboard &middot; auto-refreshes every 30s</footer>
+    </div>
+
+    <script>
+      (function () {
+        const styles = getComputedStyle(document.documentElement);
+        const color = (name) => styles.getPropertyValue(name).trim();
+        const textSecondary = color('--text-secondary');
+        const gridline = color('--gridline');
+        const good = color('--status-good');
+        const warning = color('--status-warning');
+        const critical = color('--status-critical');
+        const muted = color('--text-muted');
+
+        Chart.defaults.font.family = "system-ui, -apple-system, 'Segoe UI', sans-serif";
+        Chart.defaults.color = textSecondary;
+        Chart.defaults.borderColor = gridline;
+
+        const repoHealthEl = document.getElementById('repoHealthChart');
+        if (repoHealthEl) {
+          const counts = {{ repo_health_counts | tojson }};
+          const segments = [
+            { key: 'healthy', label: 'Healthy', color: good },
+            { key: 'attention', label: 'Needs attention', color: critical },
+            { key: 'in_progress', label: 'In progress', color: warning },
+            { key: 'no_workflow', label: 'No workflow', color: muted },
+          ];
+          new Chart(repoHealthEl, {
+            type: 'bar',
+            data: {
+              labels: ['Repositories'],
+              datasets: segments.map(s => ({
+                label: s.label,
+                data: [counts[s.key] || 0],
+                backgroundColor: s.color,
+                borderRadius: 4,
+                barThickness: 24,
+              })),
+            },
+            options: {
+              indexAxis: 'y',
+              responsive: true,
+              scales: {
+                x: { stacked: true, grid: { color: gridline }, ticks: { precision: 0 } },
+                y: { stacked: true, grid: { display: false } },
+              },
+              plugins: { legend: { display: false } },
+            },
+          });
+          const legend = document.getElementById('repoHealthLegend');
+          segments.forEach(s => {
+            const item = document.createElement('span');
+            item.innerHTML = `<span class="swatch" style="background:${s.color}"></span>${s.label}: ${counts[s.key] || 0}`;
+            legend.appendChild(item);
+          });
+        }
+
+        const trendEl = document.getElementById('trendChart');
+        if (trendEl) {
+          const history = {{ github_history | tojson }};
+          new Chart(trendEl, {
+            type: 'line',
+            data: {
+              labels: history.map(h => h.label),
+              datasets: [
+                { label: 'Successful', data: history.map(h => h.successful), borderColor: good, backgroundColor: good + '1a', borderWidth: 2, pointRadius: 3, tension: 0.25, fill: true },
+                { label: 'Failed', data: history.map(h => h.failed), borderColor: critical, backgroundColor: critical + '1a', borderWidth: 2, pointRadius: 3, tension: 0.25, fill: true },
+                { label: 'In progress', data: history.map(h => h.in_progress), borderColor: warning, backgroundColor: warning + '1a', borderWidth: 2, pointRadius: 3, tension: 0.25, fill: true },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: { grid: { display: false } },
+                y: { beginAtZero: true, grid: { color: gridline }, ticks: { precision: 0 } },
+              },
+              plugins: { legend: { display: true, position: 'top', align: 'end', labels: { boxWidth: 8, boxHeight: 8 } } },
+            },
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

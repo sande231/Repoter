@@ -18,5 +18,20 @@
     "categories": [],
     "file": "water_tracker.py",
     "created_at": "2026-07-09T23:12:06.877924"
+  },
+  "job-application-tracker": {
+    "name": "Job Application Tracker",
+    "description": "Tracks job and internship applications submitted by the user",
+    "unit": "applications",
+    "categories": [
+      "software engineering",
+      "data science",
+      "research",
+      "cybersecurity",
+      "product management",
+      "other"
+    ],
+    "file": "job_application_tracker.py",
+    "created_at": "2026-07-30T18:30:24.104963"
   }
 }

@@ -1,0 +1,508 @@
+Water Intake Tracker running with self-healing (Ctrl+C to stop)
+{"timestamp": "2026-08-04T01:00:22.766Z", "event": "healable_agent_startup", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:00:22.776Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:00:22.776Z", "event": "self_healing_manager_started", "agent_id": "water-tracker", "check_interval": 15}
+{"timestamp": "2026-08-04T01:00:22.778Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:00:37.786Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:00:52.790Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:01:07.797Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:01:22.780Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:01:22.801Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:01:37.806Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:01:52.813Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:02:07.816Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:02:22.795Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:02:22.821Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:02:37.827Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:02:37.827Z", "event": "agent_degraded_start", "agent_id": "water-tracker", "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:02:52.836Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:02:52.836Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 44.991246000000004, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:03:07.843Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:07.844Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 29.983635, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:03:22.805Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:03:22.851Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:22.851Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 14.976298, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:03:37.858Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:37.858Z", "event": "auto_restart_triggered", "agent_id": "water-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.030573, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:03:37.858Z", "event": "auto_restart_shutdown_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:37.858Z", "event": "healable_agent_shutdown", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:37.858Z", "event": "auto_restart_waiting", "agent_id": "water-tracker", "wait_seconds": 10}
+{"timestamp": "2026-08-04T01:03:47.860Z", "event": "auto_restart_startup_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:47.861Z", "event": "healable_agent_startup", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:03:47.869Z", "event": "auto_restart_completed_successfully", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:04:02.877Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:04:17.887Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:04:22.815Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:04:32.894Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:04:47.902Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:05:02.913Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:05:17.920Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:05:22.826Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:05:32.928Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:05:47.937Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:06:02.947Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:06:02.947Z", "event": "agent_degraded_start", "agent_id": "water-tracker", "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:06:17.966Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:06:17.967Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 44.980662, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:06:22.836Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:06:32.975Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:06:32.976Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 29.971556, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:06:47.984Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:06:47.984Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 14.962876999999999, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:07:02.993Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:02.994Z", "event": "auto_restart_triggered", "agent_id": "water-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.04644, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:07:02.994Z", "event": "auto_restart_shutdown_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:02.994Z", "event": "healable_agent_shutdown", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:02.994Z", "event": "auto_restart_waiting", "agent_id": "water-tracker", "wait_seconds": 10}
+{"timestamp": "2026-08-04T01:07:12.995Z", "event": "auto_restart_startup_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:12.996Z", "event": "healable_agent_startup", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:13.002Z", "event": "auto_restart_completed_successfully", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:22.848Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:07:28.009Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:43.019Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:07:58.027Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:08:13.034Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:08:22.859Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:08:28.043Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:08:43.051Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:08:58.064Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:09:13.073Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:09:22.869Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:09:28.081Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:09:28.082Z", "event": "agent_degraded_start", "agent_id": "water-tracker", "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:09:43.089Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:09:43.089Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 44.992854, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:09:58.097Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:09:58.097Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 29.984703, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:10:13.105Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:13.105Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 14.976587000000002, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:10:22.880Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:10:28.113Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:28.113Z", "event": "auto_restart_triggered", "agent_id": "water-tracker", "reason": "degraded_too_long", "degraded_for_seconds": 60.031761, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:10:28.114Z", "event": "auto_restart_shutdown_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:28.114Z", "event": "healable_agent_shutdown", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:28.114Z", "event": "auto_restart_waiting", "agent_id": "water-tracker", "wait_seconds": 10}
+{"timestamp": "2026-08-04T01:10:38.115Z", "event": "auto_restart_startup_start", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:38.116Z", "event": "healable_agent_startup", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:38.122Z", "event": "auto_restart_completed_successfully", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:10:53.132Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:11:08.139Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:11:22.893Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:11:23.148Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:11:38.156Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:11:53.164Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:12:08.172Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:12:22.909Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:12:23.179Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:12:38.189Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:12:53.198Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:12:53.199Z", "event": "agent_degraded_start", "agent_id": "water-tracker", "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:13:08.208Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:13:08.208Z", "event": "agent_still_degraded", "agent_id": "water-tracker", "seconds_until_restart": 44.990610000000004, "error_rate": 0.0}
+{"timestamp": "2026-08-04T01:13:22.925Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:13:23.217Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:13:23.217Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:13:23.223Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.86}
+{"timestamp": "2026-08-04T01:13:25.095Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.72}
+{"timestamp": "2026-08-04T01:13:27.824Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.25}
+{"timestamp": "2026-08-04T01:13:32.083Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.32}
+{"timestamp": "2026-08-04T01:13:40.414Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.08}
+{"timestamp": "2026-08-04T01:13:56.493Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 1}
+{"timestamp": "2026-08-04T01:13:56.495Z", "event": "agent_recovered", "agent_id": "water-tracker", "status": "unhealthy"}
+{"timestamp": "2026-08-04T01:14:11.504Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:14:11.505Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:14:11.508Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.15}
+{"timestamp": "2026-08-04T01:14:12.666Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.15}
+{"timestamp": "2026-08-04T01:14:14.826Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.81}
+{"timestamp": "2026-08-04T01:14:19.641Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.66}
+{"timestamp": "2026-08-04T01:14:22.938Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:14:28.309Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.49}
+{"timestamp": "2026-08-04T01:14:44.797Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 2}
+{"timestamp": "2026-08-04T01:14:59.807Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:14:59.807Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:14:59.810Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.2}
+{"timestamp": "2026-08-04T01:15:01.017Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.8}
+{"timestamp": "2026-08-04T01:15:03.823Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.0}
+{"timestamp": "2026-08-04T01:15:07.835Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.37}
+{"timestamp": "2026-08-04T01:15:16.218Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.32}
+{"timestamp": "2026-08-04T01:15:22.953Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:15:32.544Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 3}
+{"timestamp": "2026-08-04T01:15:47.552Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:15:47.553Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:15:47.555Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.51}
+{"timestamp": "2026-08-04T01:15:49.069Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.4}
+{"timestamp": "2026-08-04T01:15:51.476Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.71}
+{"timestamp": "2026-08-04T01:15:56.189Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.96}
+{"timestamp": "2026-08-04T01:16:05.160Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.06}
+{"timestamp": "2026-08-04T01:16:21.224Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 4}
+{"timestamp": "2026-08-04T01:16:22.964Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:16:36.232Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:16:36.232Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:16:36.236Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.27}
+{"timestamp": "2026-08-04T01:16:37.511Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.74}
+{"timestamp": "2026-08-04T01:16:40.263Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.44}
+{"timestamp": "2026-08-04T01:16:44.706Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.54}
+{"timestamp": "2026-08-04T01:16:53.253Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.81}
+{"timestamp": "2026-08-04T01:17:10.062Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 5}
+{"timestamp": "2026-08-04T01:17:22.976Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:17:25.071Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:17:25.071Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:17:25.074Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.15}
+{"timestamp": "2026-08-04T01:17:26.233Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.67}
+{"timestamp": "2026-08-04T01:17:28.914Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.89}
+{"timestamp": "2026-08-04T01:17:33.816Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.04}
+{"timestamp": "2026-08-04T01:17:41.860Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.35}
+{"timestamp": "2026-08-04T01:17:58.208Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 6}
+{"timestamp": "2026-08-04T01:18:13.216Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:18:13.216Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:18:13.219Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.57}
+{"timestamp": "2026-08-04T01:18:14.794Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.33}
+{"timestamp": "2026-08-04T01:18:17.126Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.05}
+{"timestamp": "2026-08-04T01:18:21.181Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.71}
+{"timestamp": "2026-08-04T01:18:22.987Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:18:29.898Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.15}
+{"timestamp": "2026-08-04T01:18:46.051Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 7}
+{"timestamp": "2026-08-04T01:19:01.060Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:19:01.060Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:19:01.063Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.3}
+{"timestamp": "2026-08-04T01:19:02.372Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.54}
+{"timestamp": "2026-08-04T01:19:04.923Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.92}
+{"timestamp": "2026-08-04T01:19:09.855Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.51}
+{"timestamp": "2026-08-04T01:19:18.378Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.33}
+{"timestamp": "2026-08-04T01:19:22.998Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:19:34.712Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 8}
+{"timestamp": "2026-08-04T01:19:49.721Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:19:49.721Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:19:49.724Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.99}
+{"timestamp": "2026-08-04T01:19:51.718Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.14}
+{"timestamp": "2026-08-04T01:19:53.861Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.26}
+{"timestamp": "2026-08-04T01:19:58.128Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.32}
+{"timestamp": "2026-08-04T01:20:06.455Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.92}
+{"timestamp": "2026-08-04T01:20:23.010Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:20:23.381Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 9}
+{"timestamp": "2026-08-04T01:20:38.392Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:20:38.392Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:20:38.395Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.64}
+{"timestamp": "2026-08-04T01:20:40.048Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.98}
+{"timestamp": "2026-08-04T01:20:43.036Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.83}
+{"timestamp": "2026-08-04T01:20:47.875Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.09}
+{"timestamp": "2026-08-04T01:20:55.970Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.7}
+{"timestamp": "2026-08-04T01:21:12.673Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 10}
+{"timestamp": "2026-08-04T01:21:23.031Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:21:27.682Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:21:27.682Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:21:27.685Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.56}
+{"timestamp": "2026-08-04T01:21:29.254Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.4}
+{"timestamp": "2026-08-04T01:21:31.665Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.68}
+{"timestamp": "2026-08-04T01:21:36.349Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.13}
+{"timestamp": "2026-08-04T01:21:44.489Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.73}
+{"timestamp": "2026-08-04T01:22:01.217Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 11}
+{"timestamp": "2026-08-04T01:22:16.226Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:22:16.227Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:22:16.230Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.89}
+{"timestamp": "2026-08-04T01:22:18.123Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.86}
+{"timestamp": "2026-08-04T01:22:20.993Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.32}
+{"timestamp": "2026-08-04T01:22:23.044Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:22:25.321Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.48}
+{"timestamp": "2026-08-04T01:22:33.810Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.66}
+{"timestamp": "2026-08-04T01:22:50.474Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 12}
+{"timestamp": "2026-08-04T01:23:05.483Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:23:05.483Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:23:05.486Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.27}
+{"timestamp": "2026-08-04T01:23:06.761Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.7}
+{"timestamp": "2026-08-04T01:23:09.469Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.07}
+{"timestamp": "2026-08-04T01:23:13.543Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.24}
+{"timestamp": "2026-08-04T01:23:21.794Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.02}
+{"timestamp": "2026-08-04T01:23:23.055Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:23:37.814Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 13}
+{"timestamp": "2026-08-04T01:23:52.822Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:23:52.822Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:23:52.825Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.65}
+{"timestamp": "2026-08-04T01:23:54.477Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.59}
+{"timestamp": "2026-08-04T01:23:57.079Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.63}
+{"timestamp": "2026-08-04T01:24:01.717Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.92}
+{"timestamp": "2026-08-04T01:24:10.643Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.74}
+{"timestamp": "2026-08-04T01:24:23.066Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:24:27.388Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 14}
+{"timestamp": "2026-08-04T01:24:42.396Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:24:42.396Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:24:42.399Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.6}
+{"timestamp": "2026-08-04T01:24:44.002Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.15}
+{"timestamp": "2026-08-04T01:24:46.161Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.6}
+{"timestamp": "2026-08-04T01:24:50.772Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.02}
+{"timestamp": "2026-08-04T01:24:58.798Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.93}
+{"timestamp": "2026-08-04T01:25:15.731Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 15}
+{"timestamp": "2026-08-04T01:25:23.078Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:25:30.740Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:25:30.740Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:25:30.743Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.35}
+{"timestamp": "2026-08-04T01:25:32.101Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.04}
+{"timestamp": "2026-08-04T01:25:34.151Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.49}
+{"timestamp": "2026-08-04T01:25:38.649Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 9.0}
+{"timestamp": "2026-08-04T01:25:47.655Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.43}
+{"timestamp": "2026-08-04T01:26:04.088Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 16}
+{"timestamp": "2026-08-04T01:26:19.097Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:26:19.097Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:26:19.100Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.44}
+{"timestamp": "2026-08-04T01:26:20.547Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.78}
+{"timestamp": "2026-08-04T01:26:23.088Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:26:23.336Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.82}
+{"timestamp": "2026-08-04T01:26:28.160Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.46}
+{"timestamp": "2026-08-04T01:26:36.631Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.78}
+{"timestamp": "2026-08-04T01:26:53.414Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 17}
+{"timestamp": "2026-08-04T01:27:08.423Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:27:08.423Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:27:08.428Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.9}
+{"timestamp": "2026-08-04T01:27:10.335Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.74}
+{"timestamp": "2026-08-04T01:27:13.081Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.58}
+{"timestamp": "2026-08-04T01:27:17.672Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.04}
+{"timestamp": "2026-08-04T01:27:23.100Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:27:25.721Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.71}
+{"timestamp": "2026-08-04T01:27:42.437Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 18}
+{"timestamp": "2026-08-04T01:27:57.447Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:27:57.447Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:27:57.450Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.96}
+{"timestamp": "2026-08-04T01:27:59.414Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.19}
+{"timestamp": "2026-08-04T01:28:01.606Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.97}
+{"timestamp": "2026-08-04T01:28:06.581Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.61}
+{"timestamp": "2026-08-04T01:28:15.197Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.9}
+{"timestamp": "2026-08-04T01:28:23.113Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:28:32.103Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 19}
+{"timestamp": "2026-08-04T01:28:47.113Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:28:47.113Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:28:47.116Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.01}
+{"timestamp": "2026-08-04T01:28:48.132Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.33}
+{"timestamp": "2026-08-04T01:28:50.469Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.29}
+{"timestamp": "2026-08-04T01:28:54.772Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.27}
+{"timestamp": "2026-08-04T01:29:03.050Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.97}
+{"timestamp": "2026-08-04T01:29:20.027Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 20}
+{"timestamp": "2026-08-04T01:29:23.124Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:29:35.037Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:29:35.037Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:29:35.040Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.33}
+{"timestamp": "2026-08-04T01:29:36.376Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.51}
+{"timestamp": "2026-08-04T01:29:38.890Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.21}
+{"timestamp": "2026-08-04T01:29:43.105Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.89}
+{"timestamp": "2026-08-04T01:29:52.001Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.88}
+{"timestamp": "2026-08-04T01:30:08.885Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 21}
+{"timestamp": "2026-08-04T01:30:23.137Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:30:23.894Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:30:23.894Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:30:23.897Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.72}
+{"timestamp": "2026-08-04T01:30:25.622Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.86}
+{"timestamp": "2026-08-04T01:30:28.495Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.63}
+{"timestamp": "2026-08-04T01:30:33.135Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.98}
+{"timestamp": "2026-08-04T01:30:42.123Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.92}
+{"timestamp": "2026-08-04T01:30:59.042Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 22}
+{"timestamp": "2026-08-04T01:31:14.049Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:31:14.050Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:31:14.053Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.28}
+{"timestamp": "2026-08-04T01:31:15.346Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.65}
+{"timestamp": "2026-08-04T01:31:18.005Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.79}
+{"timestamp": "2026-08-04T01:31:22.804Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.67}
+{"timestamp": "2026-08-04T01:31:23.151Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:31:31.484Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.26}
+{"timestamp": "2026-08-04T01:31:47.745Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 23}
+{"timestamp": "2026-08-04T01:32:02.752Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:32:02.753Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:32:02.756Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.31}
+{"timestamp": "2026-08-04T01:32:04.068Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.13}
+{"timestamp": "2026-08-04T01:32:06.202Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.77}
+{"timestamp": "2026-08-04T01:32:10.978Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.86}
+{"timestamp": "2026-08-04T01:49:08.199Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.9}
+{"timestamp": "2026-08-04T01:49:11.518Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:49:25.104Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 24}
+{"timestamp": "2026-08-04T01:49:40.114Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:49:40.114Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:49:40.117Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.14}
+{"timestamp": "2026-08-04T01:49:41.269Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.14}
+{"timestamp": "2026-08-04T01:49:43.413Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.19}
+{"timestamp": "2026-08-04T01:49:47.613Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.31}
+{"timestamp": "2026-08-04T01:49:55.946Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.43}
+{"timestamp": "2026-08-04T01:50:11.529Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:50:12.376Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 25}
+{"timestamp": "2026-08-04T01:50:27.386Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:50:27.386Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:50:27.390Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.96}
+{"timestamp": "2026-08-04T01:50:29.360Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.69}
+{"timestamp": "2026-08-04T01:50:32.055Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.02}
+{"timestamp": "2026-08-04T01:50:36.079Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.08}
+{"timestamp": "2026-08-04T01:50:44.172Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.95}
+{"timestamp": "2026-08-04T01:51:01.123Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 26}
+{"timestamp": "2026-08-04T01:51:11.541Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:51:16.130Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:51:16.130Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:51:16.133Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.45}
+{"timestamp": "2026-08-04T01:51:17.589Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.78}
+{"timestamp": "2026-08-04T01:51:20.381Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.75}
+{"timestamp": "2026-08-04T01:51:25.135Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.77}
+{"timestamp": "2026-08-04T01:51:33.915Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.04}
+{"timestamp": "2026-08-04T01:51:49.962Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 27}
+{"timestamp": "2026-08-04T01:52:04.972Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:52:04.975Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:52:04.978Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.06}
+{"timestamp": "2026-08-04T01:52:06.050Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.73}
+{"timestamp": "2026-08-04T01:52:08.784Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.14}
+{"timestamp": "2026-08-04T01:52:11.556Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:52:12.932Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.02}
+{"timestamp": "2026-08-04T01:52:20.965Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.57}
+{"timestamp": "2026-08-04T01:52:37.541Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 28}
+{"timestamp": "2026-08-04T01:52:52.549Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:52:52.549Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:52:52.552Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.89}
+{"timestamp": "2026-08-04T01:52:54.451Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.53}
+{"timestamp": "2026-08-04T01:52:56.986Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.1}
+{"timestamp": "2026-08-04T01:53:01.095Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.26}
+{"timestamp": "2026-08-04T01:53:09.359Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.49}
+{"timestamp": "2026-08-04T01:53:11.568Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:53:25.854Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 29}
+{"timestamp": "2026-08-04T01:53:40.864Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:53:40.865Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:53:40.867Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.42}
+{"timestamp": "2026-08-04T01:53:42.297Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.41}
+{"timestamp": "2026-08-04T01:53:44.718Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.05}
+{"timestamp": "2026-08-04T01:53:48.769Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.46}
+{"timestamp": "2026-08-04T01:53:57.242Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.93}
+{"timestamp": "2026-08-04T01:54:11.580Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:54:14.179Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 30}
+{"timestamp": "2026-08-04T01:54:29.187Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:54:29.188Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:54:29.191Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.04}
+{"timestamp": "2026-08-04T01:54:30.242Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.25}
+{"timestamp": "2026-08-04T01:54:32.505Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.51}
+{"timestamp": "2026-08-04T01:54:37.022Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.23}
+{"timestamp": "2026-08-04T01:54:45.261Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.55}
+{"timestamp": "2026-08-04T01:55:01.863Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 31}
+{"timestamp": "2026-08-04T01:55:11.647Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T01:55:16.873Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T01:55:16.873Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T01:55:16.876Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.83}
+{"timestamp": "2026-08-04T01:55:18.713Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.33}
+{"timestamp": "2026-08-04T01:55:21.047Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.9}
+{"timestamp": "2026-08-04T01:55:25.951Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.23}
+{"timestamp": "2026-08-04T01:55:34.189Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.76}
+{"timestamp": "2026-08-04T02:11:18.728Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 32}
+{"timestamp": "2026-08-04T02:11:33.737Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:11:39.432Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:11:48.745Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:12:03.807Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:12:18.816Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:12:33.824Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:12:39.498Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:30:31.668Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:30:46.678Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:31:01.687Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:31:16.753Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:31:22.399Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:31:31.763Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:31:46.771Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:32:01.780Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:45:42.631Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:45:48.249Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:45:57.640Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:46:12.647Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:46:27.655Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:46:42.663Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:46:48.261Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:46:57.671Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:47:12.678Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:47:27.684Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:47:42.690Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:47:48.266Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:47:57.697Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:48:12.705Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:48:27.713Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:48:42.719Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:48:48.275Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:48:57.726Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:49:12.733Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:49:27.741Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:49:42.750Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:49:48.287Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:49:57.759Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:50:12.764Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:50:27.770Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:50:42.776Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:50:48.299Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:50:57.783Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:51:12.791Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:51:27.796Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:51:42.803Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:51:48.311Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:51:57.810Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:52:12.818Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:52:27.825Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:52:42.831Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:52:48.323Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:52:57.838Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:53:12.845Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:53:27.852Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:53:42.860Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:53:48.336Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:53:57.868Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:54:12.876Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:54:27.883Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:54:42.887Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:54:48.348Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:54:57.895Z", "event": "queue_healer_no_queue", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:55:12.903Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:55:12.903Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:55:12.906Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.79}
+{"timestamp": "2026-08-04T02:55:14.708Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.91}
+{"timestamp": "2026-08-04T02:55:17.624Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.61}
+{"timestamp": "2026-08-04T02:55:22.243Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.16}
+{"timestamp": "2026-08-04T02:55:30.412Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.73}
+{"timestamp": "2026-08-04T02:55:47.145Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 33}
+{"timestamp": "2026-08-04T02:55:48.360Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:56:02.153Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:56:02.153Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:56:02.157Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.44}
+{"timestamp": "2026-08-04T02:56:03.599Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.09}
+{"timestamp": "2026-08-04T02:56:05.695Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.56}
+{"timestamp": "2026-08-04T02:56:10.263Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.35}
+{"timestamp": "2026-08-04T02:56:18.619Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.78}
+{"timestamp": "2026-08-04T02:56:35.403Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 34}
+{"timestamp": "2026-08-04T02:56:48.372Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:56:50.411Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:56:50.412Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:56:50.415Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.82}
+{"timestamp": "2026-08-04T02:56:52.241Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.51}
+{"timestamp": "2026-08-04T02:56:54.763Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.36}
+{"timestamp": "2026-08-04T02:56:59.130Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.93}
+{"timestamp": "2026-08-04T02:57:08.063Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.94}
+{"timestamp": "2026-08-04T02:57:25.003Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 35}
+{"timestamp": "2026-08-04T02:57:40.012Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:57:40.012Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:57:40.015Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.06}
+{"timestamp": "2026-08-04T02:57:41.086Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.84}
+{"timestamp": "2026-08-04T02:57:43.928Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.04}
+{"timestamp": "2026-08-04T02:57:47.970Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.29}
+{"timestamp": "2026-08-04T02:57:48.383Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:57:56.267Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.93}
+{"timestamp": "2026-08-04T02:58:13.197Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 36}
+{"timestamp": "2026-08-04T02:58:28.205Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:58:28.205Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:58:28.209Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.93}
+{"timestamp": "2026-08-04T02:58:30.149Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.33}
+{"timestamp": "2026-08-04T02:58:32.478Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.73}
+{"timestamp": "2026-08-04T02:58:37.211Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.95}
+{"timestamp": "2026-08-04T02:58:46.169Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.07}
+{"timestamp": "2026-08-04T02:58:48.394Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:59:02.238Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 37}
+{"timestamp": "2026-08-04T02:59:17.246Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T02:59:17.247Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T02:59:17.250Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.94}
+{"timestamp": "2026-08-04T02:59:19.198Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.11}
+{"timestamp": "2026-08-04T02:59:21.315Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.84}
+{"timestamp": "2026-08-04T02:59:26.161Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.51}
+{"timestamp": "2026-08-04T02:59:34.676Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.77}
+{"timestamp": "2026-08-04T02:59:48.405Z", "event": "totals_reported", "agent_id": "water-tracker", "total": 0}
+{"timestamp": "2026-08-04T02:59:51.445Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 38}
+{"timestamp": "2026-08-04T03:00:06.453Z", "event": "healing_cycle_server_down", "agent_id": "water-tracker"}
+{"timestamp": "2026-08-04T03:00:06.453Z", "event": "auto_reconnect_started", "agent_id": "water-tracker", "max_attempts": 5}
+{"timestamp": "2026-08-04T03:00:06.456Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 1, "next_retry_in_seconds": 1.08}
+{"timestamp": "2026-08-04T03:00:07.546Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 2, "next_retry_in_seconds": 2.84}
+{"timestamp": "2026-08-04T03:00:10.398Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 3, "next_retry_in_seconds": 4.85}
+{"timestamp": "2026-08-04T03:00:15.260Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 4, "next_retry_in_seconds": 8.12}
+{"timestamp": "2026-08-04T03:00:23.389Z", "event": "auto_reconnect_attempt_failed", "agent_id": "water-tracker", "attempt": 5, "next_retry_in_seconds": 16.67}
+{"timestamp": "2026-08-04T03:00:40.061Z", "event": "auto_reconnect_exhausted", "agent_id": "water-tracker", "consecutive_failures": 39}
