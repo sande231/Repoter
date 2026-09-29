@@ -31,3 +31,4 @@ telemetry_queue.db
 # Generated agent configs
 config_*.json
 logs/
+.DS_Store
