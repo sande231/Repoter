@@ -1,6 +1,6 @@
 #!/bin/bash
 # Start the entire Synapse stack in the background
-cd ~/Desktop/synapse
+cd "$(dirname "$0")"
 source .venv/bin/activate
 
 # Load .env into this shell so every process started below (ingestion server, trackers)
@@ -25,7 +25,6 @@ pkill -f "distance_tracker.py run" 2>/dev/null
 pkill -f "study_tracker.py run" 2>/dev/null
 pkill -f "water_tracker.py run" 2>/dev/null
 pkill -f "job_application_tracker.py run" 2>/dev/null
-pkill -f "telegram_bot.py" 2>/dev/null
 sleep 1
 
 # Start server
@@ -46,8 +45,6 @@ echo "✅ Water tracker starting"
 nohup python job_application_tracker.py run > logs/job_application_tracker.log 2>&1 &
 echo "✅ Job application tracker starting"
 
-nohup python -u telegram_bot.py > logs/telegram_bot.log 2>&1 &
-echo "✅ Telegram bot starting"
 
 sleep 3
 echo ""

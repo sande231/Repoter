@@ -1,0 +1,211 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>GitHub Agent Dashboard</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 20px; background: #f7f8fb; }
+      .header { margin-bottom: 24px; }
+      .metric { display: inline-block; width: 150px; margin-right: 16px; background: white; border-radius: 8px; padding: 12px; box-shadow: 0 0 8px rgba(0,0,0,0.06); }
+      .metric strong { display: block; font-size: 1.4em; margin-bottom: 4px; }
+      table { border-collapse: collapse; width: 100%; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 0 10px rgba(0,0,0,0.08); }
+      th, td { border-bottom: 1px solid #eee; padding: 12px; text-align: left; }
+      th { background: #f0f3f7; }
+      tr:last-child td { border-bottom: none; }
+      .status-success { color: #1a7f37; font-weight: bold; }
+      .status-failed { color: #c81e1e; font-weight: bold; }
+      .status-in_progress { color: #bd8f00; font-weight: bold; }
+      .health-healthy { color: #1a7f37; font-weight: bold; }
+      .health-attention, .health-unknown { color: #c81e1e; font-weight: bold; }
+      .health-in_progress { color: #bd8f00; font-weight: bold; }
+      .health-no_workflow { color: #57606a; }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>GitHub Agent Dashboard</h1>
+      <p>Generated at 2026-07-30 17:14:11</p>
+      <div class="metric"><strong>13</strong>Total repos</div>
+      <div class="metric"><strong>3</strong>Repos with workflow</div>
+      <div class="metric"><strong>1</strong>Successful</div>
+      <div class="metric"><strong>2</strong>Failed</div>
+      <div class="metric"><strong>0</strong>In progress</div>
+      <div class="metric"><strong>10</strong>No workflows</div>
+      <div class="metric"><strong>2</strong>Needs attention</div>
+      <div class="metric"><strong>33%</strong>Health score</div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Repository</th>
+          <th>Description</th>
+          <th>Health</th>
+          <th>Stars</th>
+          <th>Forks</th>
+          <th>Latest status</th>
+          <th>Conclusion</th>
+          <th>Last run</th>
+          <th>Workflow link</th>
+        </tr>
+      </thead>
+      <tbody>
+      
+        <tr>
+          <td>cs.inavigator.ai</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>Repoter</td>
+          <td>-</td>
+          <td><span class="health-attention">Needs attention</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td><span class="status-completed">completed</span></td>
+          <td>failure</td>
+          <td>2026-07-30T10:23:54Z</td>
+          <td><a href="https://github.com/sande231/Repoter/actions/runs/30534488676">View</a></td>
+        </tr>
+      
+        <tr>
+          <td>canvas-tutor-agent</td>
+          <td>-</td>
+          <td><span class="health-attention">Needs attention</span></td>
+          <td>1</td>
+          <td>0</td>
+          <td><span class="status-completed">completed</span></td>
+          <td>failure</td>
+          <td>2026-07-30T13:05:32Z</td>
+          <td><a href="https://github.com/sande231/canvas-tutor-agent/actions/runs/30545335961">View</a></td>
+        </tr>
+      
+        <tr>
+          <td>DS</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>job-applyer</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>1</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>News-Agent</td>
+          <td>-</td>
+          <td><span class="health-healthy">Healthy</span></td>
+          <td>1</td>
+          <td>0</td>
+          <td><span class="status-completed">completed</span></td>
+          <td>success</td>
+          <td>2026-07-18T13:25:44Z</td>
+          <td><a href="https://github.com/sande231/News-Agent/actions/runs/29646115239">View</a></td>
+        </tr>
+      
+        <tr>
+          <td>sande231</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>COSC_352_SPRING_2026</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>Study-Buddy</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>html-table-parser</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>AI_Cloud_Study_Saver</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>b3-expense-tracker</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+        <tr>
+          <td>ai-movie-recommendation-dashboard</td>
+          <td>-</td>
+          <td><span class="health-no_workflow">No workflow</span></td>
+          <td>0</td>
+          <td>0</td>
+          <td>n/a</td>
+          <td>n/a</td>
+          <td>-</td>
+          <td>-</td>
+        </tr>
+      
+      </tbody>
+    </table>
+  </body>
+</html>
