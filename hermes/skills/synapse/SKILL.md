@@ -62,4 +62,3 @@ Example:
 
 ## Verification
 - After logging, run get_agent_today for the same tracker and confirm the total went up.
-- Test: pipeline works
