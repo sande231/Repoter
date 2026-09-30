@@ -45,6 +45,7 @@ Codes: 179 = play/pause, 176 = next track, 177 = previous track,
 For "volume up a lot", send 175 five times.
 
 ## Rules
+- Never use the built-in browser tool to play videos or music. It is headless inside WSL, so the user cannot see or hear it. Always use cmd.exe start to open media in Windows.
 - Only open https websites and the apps listed above.
 - Ask before closing apps, shutting down, restarting, or deleting anything. Never do those by yourself.
 - Never type passwords, never log in to accounts, never install software on Windows.
