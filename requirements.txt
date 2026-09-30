@@ -13,3 +13,4 @@ audioop-lts; python_version >= "3.13"
 python-telegram-bot>=21.0
 anthropic>=0.100.0
 Flask-Limiter>=3.5
+yt-dlp
